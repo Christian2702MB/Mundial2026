@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mundial de Vidas 2026 - Polla Familiar</title>
-    <!-- Tailwind CSS para base de diseño de TV deportiva -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0b0f19; color: #f8fafc; overflow-x: hidden; }
         .tab-active { border-bottom-color: #22c55e; color: #22c55e; }
         
         /* --- HIGH PERFORMANCE CINEMATIC ANIMATIONS --- */
-        
-        /* Entrada fluida al cargar */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
@@ -52,7 +49,6 @@
             border-color: rgba(239, 68, 68, 0.4) !important;
         }
 
-        /* Transición de impacto al tachar países */
         .country-box {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -66,17 +62,20 @@
 </head>
 <body class="p-4 md:p-8 font-sans">
 
-    <!-- Encabezado Principal -->
     <div class="max-w-6xl mx-auto text-center mb-6">
-        <h1 class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 uppercase tracking-wider mb-2">
+        <h1 class="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 uppercase tracking-wider mb-1">
             🏆 MUNDIAL DE VIDAS 2026 🏆
         </h1>
-        <div class="inline-block bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 font-black text-lg px-6 py-1.5 rounded-full shadow-2xl tracking-wide">
-            💰 POZO: S/. 400
+        <div class="flex items-center justify-center gap-3 mb-3">
+            <span class="bg-slate-800 text-slate-400 text-[10px] font-mono px-2.5 py-0.5 rounded-md border border-slate-700 tracking-wider">
+                v2.2 - Animaciones & Hojas
+            </span>
+            <div class="bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 font-black text-xs px-4 py-0.5 rounded-full shadow-lg">
+                💰 POZO: S/. 400
+            </div>
         </div>
     </div>
 
-    <!-- Menú de Navegación por Hojas (Tabs) -->
     <div class="max-w-6xl mx-auto flex border-b border-slate-800 mb-6 text-sm md:text-base font-black tracking-wide">
         <button onclick="switchTab('polla')" id="btn-tab-polla" class="flex-1 py-3 text-center border-b-4 border-transparent tab-active transition-all">
             📊 Mi Polla (Posiciones)
@@ -86,10 +85,8 @@
         </button>
     </div>
 
-    <!-- Layout de Dos Columnas -->
     <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <!-- PANEL DE CONTROL TÉCNICO MANUAl -->
         <div class="bg-slate-900/90 p-5 rounded-2xl shadow-2xl border border-slate-800 h-fit backdrop-blur-md">
             <h2 class="text-base font-extrabold text-green-400 mb-3 flex items-center gap-2">
                 ⚙️ Panel de Control Técnico
@@ -98,12 +95,9 @@
             <div id="country-controls" class="space-y-2"></div>
         </div>
 
-        <!-- HOJA 1: MI POLLA (DISTRIBUCIÓN HORIZONTAL ORIGINAL INTEGRADA CON ANIMACIONES) -->
         <div id="tab-content-polla" class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- Renderizado dinámico automatizado sin puntos suspensivos -->
-        </div>
+            </div>
 
-        <!-- HOJA 2: AVANCE DEL TORNEO (ÁRBOL DE CLASIFICACIÓN DINÁMICO) -->
         <div id="tab-content-avance" class="lg:col-span-2 bg-slate-900/40 p-6 rounded-2xl border border-slate-800/80 hidden">
             <h2 class="text-lg font-black text-slate-200 mb-5 border-b border-slate-800 pb-2 flex items-center gap-2">
                 🔀 Clasificación y Llaves en Vivo
@@ -211,14 +205,12 @@
                     badge = `<span class="bg-rose-950 text-rose-400 text-xs px-2.5 py-0.5 rounded-full border border-rose-500/20 font-black tracking-widest">💀 FUERA</span>`;
                 }
 
-                // Si esta tarjeta específica acaba de perder su última vida, forzamos animación de sismo
                 if (triggerShakeFor === p.name) {
                     stateClass += ' status-gameover';
                 }
 
                 const delay = index * 0.04;
 
-                // SOLUCIÓN HORIZONTAL TOTALMENTE CORREGIDA (Sin clases de truncado, con flex-row alineado para que entre en cualquier pantalla móvil)
                 container.innerHTML += `
                     <div class="card-animate ${stateClass} p-4 rounded-xl border transition-all shadow-xl" style="animation-delay: ${delay}s">
                         <div class="flex justify-between items-center mb-3">
@@ -226,12 +218,10 @@
                             ${badge}
                         </div>
                         <div class="grid grid-cols-2 gap-2">
-                            <!-- País 1 -->
                             <div class="country-box p-2.5 rounded-lg bg-slate-950/40 border border-slate-800/40 flex items-center justify-center gap-2 ${!c1Alive ? 'country-dead text-slate-500' : 'text-slate-200 font-bold'}">
                                 <span class="text-lg flex-shrink-0">${p.flag1}</span>
                                 <span class="text-xs tracking-wide whitespace-nowrap">${p.c1}</span>
                             </div>
-                            <!-- País 2 -->
                             <div class="country-box p-2.5 rounded-lg bg-slate-950/40 border border-slate-800/40 flex items-center justify-center gap-2 ${!c2Alive ? 'country-dead text-slate-500' : 'text-slate-200 font-bold'}">
                                 <span class="text-lg flex-shrink-0">${p.flag2}</span>
                                 <span class="text-xs tracking-wide whitespace-nowrap">${p.c2}</span>
@@ -289,7 +279,6 @@
             saveAndRender(shockedParticipant);
         }
 
-        // Mapeo inicial de vidas
         participants.forEach(p => {
             const c1Alive = countryStatus[p.c1];
             const c2Alive = countryStatus[p.c2];
