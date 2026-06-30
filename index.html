@@ -8,13 +8,13 @@
     <style>
         body { background-color: #0b0f19; color: #f8fafc; overflow-x: hidden; }
         
-        /* Animaciones Cinemáticas */
+        /* --- HIGH PERFORMANCE CINEMATIC ANIMATIONS --- */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
         @keyframes earthquake {
-            0%, 100__ { transform: translateX(0); }
+            0%, 100% { transform: translateX(0); }
             20% { transform: translateX(-5px) rotate(-0.5deg); }
             40% { transform: translateX(5px) rotate(0.5deg); }
             60% { transform: translateX(-3px); }
@@ -40,7 +40,7 @@
         </h1>
         <div class="flex items-center justify-center gap-3 mb-3">
             <span class="bg-slate-800 text-slate-400 text-[10px] font-mono px-2.5 py-0.5 rounded-md border border-slate-700 tracking-wider">
-                v2.3 - Simulador Brackets Fixed
+                v2.4 - Control
             </span>
             <div class="bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 font-black text-xs px-4 py-0.5 rounded-full shadow-lg">
                 💰 POZO: S/. 400
@@ -63,7 +63,7 @@
             <h2 class="text-base font-extrabold text-green-400 mb-2 flex items-center gap-2">
                 ⚙️ Panel de Control Técnico
             </h2>
-            <p class="text-[11px] text-slate-400 mb-4">Haz clic para cambiar el estado general de los países:</p>
+            <p class="text-[11px] text-slate-400 mb-4">Haz clic para cambiar el estado de supervivencia general:</p>
             <div id="country-controls" class="space-y-1.5"></div>
         </div>
 
@@ -73,11 +73,13 @@
         <div id="tab-content-avance" class="lg:col-span-2 bg-slate-900/40 p-5 rounded-2xl border border-slate-800 hidden">
             <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-slate-800 pb-3 mb-4 gap-2">
                 <h2 class="text-base font-black text-slate-200 flex items-center gap-2">🔀 Simulador de Llaves Directas</h2>
+                
                 <div class="flex bg-slate-950 p-1 rounded-lg border border-slate-800 text-[11px] font-bold">
-                    <button onclick="filterRound(16)" id="r-btn-16" class="px-2.5 py-1 rounded bg-slate-800 text-green-400">16avos</button>
-                    <button onclick="filterRound(8)" id="r-btn-8" class="px-2.5 py-1 rounded text-slate-400">Octavos</button>
-                    <button onclick="filterRound(4)" id="r-btn-4" class="px-2.5 py-1 rounded text-slate-400">Cuartos</button>
-                    <button onclick="filterRound(2)" id="r-btn-2" class="px-2.5 py-1 rounded text-slate-400">Semis/Final</button>
+                    <button onclick="filterRound(16)" id="r-btn-16" class="px-2 py-1 rounded bg-slate-800 text-green-400">16avos</button>
+                    <button onclick="filterRound(8)" id="r-btn-8" class="px-2 py-1 rounded text-slate-400">Octavos</button>
+                    <button onclick="filterRound(4)" id="r-btn-4" class="px-2 py-1 rounded text-slate-400">Cuartos</button>
+                    <button onclick="filterRound(2)" id="r-btn-2" class="px-2 py-1 rounded text-slate-400">Semifinal</button>
+                    <button onclick="filterRound(1)" id="r-btn-1" class="px-2 py-1 rounded text-slate-400">🔥 Final</button>
                 </div>
             </div>
             
@@ -98,41 +100,47 @@
             { name: "Andre", c1: "Holanda", flag1: "🇳🇱", c2: "Portugal", flag2: "🇵🇹" }
         ];
 
-        const flags = { "Japón": "🇯🇵", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Portugal": "🇵🇹", "Marruecos": "🇲🇦", "Alemania": "🇩🇪", "España": "🇪🇸", "Francia": "🇫🇷", "Holanda": "🇳🇱", "Suecia": "🇸🇪", "Sudáfrica": "🇿🇦", "Canadá": "🇨🇦", "Países Bajos": "🇳🇱", "Croacia": "🇭🇷", "Austria": "🇦🇹", "Estados Unidos": "🇺🇸", "Bosnia": "🇧🇦", "Bélgica": "🇧🇪", "Senegal": "🇸🇳", "Costa de Marfil": "🇨🇮", "Noruega": "🇳🇴", "México": "🇲🇽", "Ecuador": "🇪🇨", "RD Congo": "🇨🇩", "Cabo Verde": "🇨🇻", "Australia": "🇦🇺", "Egipto": "🇪🇬", "Suiza": "🇨🇭", "Argelia": "🇩🇿", "Colombia": "🇨🇴", "Ghana": "🇬🇭", "Por definir": "🏳️" };
+        const flags = { "Japón": "🇯🇵", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Portugal": "🇵🇹", "Marruecos": "🇲🇦", "Alemania": "🇩🇪", "España": "🇪🇸", "Francia": "🇫🇷", "Holanda": "🇳🇱", "Suecia": "🇸🇪", "Sudáfrica": "🇿🇦", "Canadá": "🇨🇦", "Países Bajos": "🇳🇱", "Croacia": "🇭🇷", "Austria": "🇦🇹", "Estados Unidos": "🇺🇸", "Bosnia": "🇧🇦", "Bélgica": "🇧🇪", "Senegal": "🇸🇳", "Costa de Marfil": "🇨🇮", "Noruega": "🇳🇴", "México": "🇲🇽", "Ecuador": "🇪🇨", "RD Congo": "🇨🇩", "Cabo Verde": "🇨🇻", "Australia": "🇦🇺", "Egipto": "🇪🇬", "Suiza": "🇨🇭", "Argelia": "🇩🇿", "Colombia": "🇨🇴", "Ghana": "🇬🇭", "Paraguay": "🇵🇾", "Por definir": "🏳️" };
 
         let countryStatus = JSON.parse(localStorage.getItem('wc2026_status')) || {
             "Japón": false, "Alemania": false, "Inglaterra": true, "Argentina": true, "Brasil": true, "Portugal": true, "Marruecos": true, "España": true, "Francia": true, "Holanda": true
         };
 
-        // Base de datos del simulador de llaves (16 partidos iniciales de tus imágenes)
         let simulationData = JSON.parse(localStorage.getItem('wc2026_sim')) || {
             r16: [
                 { id: 1, t1: "Alemania", t2: "Paraguay", w: "Paraguay", date: "Definido" },
                 { id: 2, t1: "Francia", t2: "Suecia", w: "Francia", date: "Definido" },
                 { id: 3, t1: "Sudáfrica", t2: "Canadá", w: "Canadá", date: "Definido" },
                 { id: 4, t1: "Países Bajos", t2: "Marruecos", w: "Marruecos", date: "Definido" },
-                { id: 5, t1: "Portugal", t2: "Croacia", w: null, date: "Por jugar" },
-                { id: 6, t1: "España", t2: "Austria", w: null, date: "Por jugar" },
-                { id: 7, t1: "Estados Unidos", t2: "Bosnia", w: null, date: "Por jugar" },
-                { id: 8, t1: "Bélgica", t2: "Senegal", w: null, date: "Por jugar" },
+                { id: 5, t1: "Portugal", t2: "Croacia", w: null, date: "4 jul" },
+                { id: 6, t1: "España", t2: "Austria", w: null, date: "4 jul" },
+                { id: 7, t1: "Estados Unidos", t2: "Bosnia", w: null, date: "5 jul" },
+                { id: 8, t1: "Bélgica", t2: "Senegal", w: null, date: "5 jul" },
                 { id: 9, t1: "Brasil", t2: "Japón", w: "Brasil", date: "Definido" },
-                { id: 10, t1: "Costa de Marfil", t2: "Noruega", w: null, date: "Por jugar" },
-                { id: 11, t1: "México", t2: "Ecuador", w: null, date: "Por jugar" },
-                { id: 12, t1: "Inglaterra", t2: "RD Congo", w: null, date: "Por jugar" },
-                { id: 13, t1: "Argentina", t2: "Cabo Verde", w: null, date: "Por jugar" },
-                { id: 14, t1: "Australia", t2: "Egipto", w: null, date: "Por jugar" },
-                { id: 15, t1: "Suiza", t2: "Argelia", w: null, date: "Por jugar" },
-                { id: 16, t1: "Colombia", t2: "Ghana", w: null, date: "Por jugar" }
+                { id: 10, t1: "Costa de Marfil", t2: "Noruega", w: null, date: "6 jul" },
+                { id: 11, t1: "México", t2: "Ecuador", w: null, date: "6 jul" },
+                { id: 12, t1: "Inglaterra", t2: "RD Congo", w: null, date: "7 jul" },
+                { id: 13, t1: "Argentina", t2: "Cabo Verde", w: null, date: "7 jul" },
+                { id: 14, t1: "Australia", t2: "Egipto", w: null, date: "7 jul" },
+                { id: 15, t1: "Suiza", t2: "Argelia", w: null, date: "7 jul" },
+                { id: 16, t1: "Colombia", t2: "Ghana", w: null, date: "7 jul" }
             ],
-            r8: Array(8).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "4 jul / 5 jul" })),
-            r4: Array(4).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "9 jul / 10 jul" })),
-            r2: Array(2).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "11 jul / 15 jul" }))
+            r8: Array(8).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "9 jul / 10 jul" })),
+            r4: Array(4).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "11 jul / 12 jul" })),
+            r2: Array(2).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "14 jul / 15 jul" })),
+            r1: [{ id: 1, t1: "Por definir", t2: "Por definir", w: null, date: "19 jul - GRAN FINAL" }]
         };
 
         let currentActiveRound = 16;
         let previousLivesState = {};
 
-        // REPARACIÓN COMPLETA DE CLASES EN NAVEGACIÓN
+        // Función lógica para obtener los dueños de cada país de forma dinámica
+        function getOwnersText(country) {
+            if (country === "Por definir") return "";
+            const owners = participants.filter(p => p.c1 === country || p.c2 === country).map(p => p.name);
+            return owners.length > 0 ? `(${owners.join(', ')})` : "";
+        }
+
         function switchTab(tab) {
             const pollaContent = document.getElementById('tab-content-polla');
             const avanceContent = document.getElementById('tab-content-avance');
@@ -154,10 +162,10 @@
 
         function filterRound(round) {
             currentActiveRound = round;
-            [16, 8, 4, 2].forEach(r => {
+            [16, 8, 4, 2, 1].forEach(r => {
                 const btn = document.getElementById(`r-btn-${r}`);
-                if(r === round) { btn.className = "px-2.5 py-1 rounded bg-slate-800 text-green-400"; }
-                else { btn.className = "px-2.5 py-1 rounded text-slate-400"; }
+                if(r === round) { btn.className = "px-2 py-1 rounded bg-slate-800 text-green-400"; }
+                else { btn.className = "px-2 py-1 rounded text-slate-400"; }
             });
             renderAvanceTorneo();
         }
@@ -178,7 +186,7 @@
                 const isAlive = countryStatus[country];
                 const btnClass = isAlive ? 'bg-emerald-600' : 'bg-rose-600';
                 container.innerHTML += `
-                    <div class="flex justify-between items-center bg-slate-950/40 p-2 rounded-xl border border-slate-800/60">
+                    <div class="flex justify-between items-center bg-slate-950/50 p-2 rounded-xl border border-slate-800/60">
                         <span class="font-bold text-xs text-slate-300">${country}</span>
                         <button onclick="toggleCountry('${country}')" class="${btnClass} text-white text-[10px] font-black px-3 py-1 rounded-lg transition-all transform active:scale-95">
                             ${isAlive ? 'VIVO' : 'ELIMINADO'}
@@ -227,23 +235,25 @@
             });
         }
 
-        // Lógica algorítmica estilo 365scores para arrastrar ganadores a las siguientes llaves
         function calculateNextRounds() {
-            // De 16avos a Octavos (r16 -> r8)
+            // r16 -> r8
             for (let i = 0; i < 8; i++) {
                 simulationData.r8[i].t1 = simulationData.r16[i*2].w || "Por definir";
                 simulationData.r8[i].t2 = simulationData.r16[i*2 + 1].w || "Por definir";
             }
-            // De Octavos a Cuartos (r8 -> r4)
+            // r8 -> r4
             for (let i = 0; i < 4; i++) {
                 simulationData.r4[i].t1 = simulationData.r8[i*2].w || "Por definir";
                 simulationData.r4[i].t2 = simulationData.r8[i*2 + 1].w || "Por definir";
             }
-            // De Cuartos a Semis/Final (r4 -> r2)
+            // r4 -> r2
             for (let i = 0; i < 2; i++) {
                 simulationData.r2[i].t1 = simulationData.r4[i*2].w || "Por definir";
                 simulationData.r2[i].t2 = simulationData.r4[i*2 + 1].w || "Por definir";
             }
+            // r2 -> r1 (Gran Final)
+            simulationData.r1[0].t1 = simulationData.r2[0].w || "Por definir";
+            simulationData.r1[0].t2 = simulationData.r2[1].w || "Por definir";
         }
 
         function simulateWinner(roundKey, matchId, teamIndex) {
@@ -253,7 +263,6 @@
             
             if (selectedTeam === "Por definir") return;
 
-            // Alternar selección (Toggle)
             if (match.w === selectedTeam) { match.w = null; } 
             else { match.w = selectedTeam; }
 
@@ -274,15 +283,31 @@
                 const t1Selected = m.w === m.t1 && m.w !== null;
                 const t2Selected = m.w === m.t2 && m.w !== null;
 
+                // LÓGICA AUTOMÁTICA DE ESTADOS SOLICITADA
+                let labelEstado = "";
+                let badgeEstilo = "";
+                if (m.t1 === "Por definir" || m.t2 === "Por definir") {
+                    labelEstado = "⏳ Por definir";
+                    badgeEstilo = "text-slate-500 bg-slate-950";
+                } else if (!m.w) {
+                    labelEstado = `🕒 Por jugar (${m.date})`;
+                    badgeEstilo = "text-yellow-400 bg-yellow-950/40 border border-yellow-500/20";
+                } else {
+                    labelEstado = "✅ Definido";
+                    badgeEstilo = "text-emerald-400 bg-emerald-950/40 border border-emerald-500/20";
+                }
+
                 container.innerHTML += `
-                    <div class="bg-slate-950/40 border border-slate-800/80 rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md">
-                        <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">${m.date}</div>
+                    <div class="bg-slate-950/40 border border-slate-800/80 rounded-xl p-3 flex flex-col md:flex-row items-center justify-between gap-3 shadow-md">
+                        <div class="text-[10px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider ${badgeEstilo}">${labelEstado}</div>
                         
                         <div class="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-xl">
                             <div onclick="simulateWinner('${currentRoundKey}', ${m.id}, 1)" class="cursor-pointer p-2 rounded-lg bg-slate-900/60 border border-slate-800 flex items-center justify-between hover:border-slate-700 transition-all">
                                 <div class="flex items-center gap-2 truncate">
                                     <span class="text-base">${f1}</span>
-                                    <span class="text-xs font-bold truncate text-slate-300">${m.t1}</span>
+                                    <span class="text-xs font-bold truncate text-slate-300">
+                                        ${m.t1} <span class="text-[10px] text-yellow-400 font-medium ml-0.5">${getOwnersText(m.t1)}</span>
+                                    </span>
                                 </div>
                                 <div class="w-3 h-3 rounded-full border-2 transition-all ${t1Selected ? 'bg-green-500 border-green-400 shadow-[0_0_8px_#22c55e]' : 'border-slate-700 bg-transparent'}"></div>
                             </div>
@@ -290,7 +315,9 @@
                             <div onclick="simulateWinner('${currentRoundKey}', ${m.id}, 2)" class="cursor-pointer p-2 rounded-lg bg-slate-900/60 border border-slate-800 flex items-center justify-between hover:border-slate-700 transition-all">
                                 <div class="flex items-center gap-2 truncate">
                                     <span class="text-base">${f2}</span>
-                                    <span class="text-xs font-bold truncate text-slate-300">${m.t2}</span>
+                                    <span class="text-xs font-bold truncate text-slate-300">
+                                        ${m.t2} <span class="text-[10px] text-yellow-400 font-medium ml-0.5">${getOwnersText(m.t2)}</span>
+                                    </span>
                                 </div>
                                 <div class="w-3 h-3 rounded-full border-2 transition-all ${t2Selected ? 'bg-green-500 border-green-400 shadow-[0_0_8px_#22c55e]' : 'border-slate-700 bg-transparent'}"></div>
                             </div>
