@@ -7,57 +7,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0b0f19; color: #f8fafc; overflow-x: hidden; }
-        .tab-active { border-bottom-color: #22c55e; color: #22c55e; }
         
-        /* --- HIGH PERFORMANCE CINEMATIC ANIMATIONS --- */
+        /* Animaciones Cinemáticas */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Animación de terremoto violento para eliminación definitiva */
         @keyframes earthquake {
-            0%, 100% { transform: translateX(0) rotate(0deg); }
-            15% { transform: translateX(-6px) rotate(-1deg); }
-            30% { transform: translateX(5px) rotate(1deg); }
-            50% { transform: translateX(-4px) rotate(-0.5deg); }
-            70% { transform: translateX(3px) rotate(0.5deg); }
+            0%, 100__ { transform: translateX(0); }
+            20% { transform: translateX(-5px) rotate(-0.5deg); }
+            40% { transform: translateX(5px) rotate(0.5deg); }
+            60% { transform: translateX(-3px); }
         }
-
-        /* Balanceo/Flote magnético para estados de advertencia (Capilla) */
         @keyframes floatWarning {
-            0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); }
-            50% { transform: translateY(-4px) scale(1.01); box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35); border-color: rgba(245, 158, 11, 0.6); }
+            0%, 100% { transform: translateY(0); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); }
+            50% { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3); border-color: rgba(245, 158, 11, 0.6); }
         }
 
-        .card-animate {
-            animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Estilos dinámicos inyectados por JS */
-        .status-capilla {
-            animation: floatWarning 2.5s infinite ease-in-out;
-            background: linear-gradient(135deg, #151426 0%, #0d1220 100%) !important;
-        }
-
-        .status-gameover {
-            animation: earthquake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-            filter: grayscale(0.85);
-            opacity: 0.35;
-            background: linear-gradient(135deg, #1a0808 0%, #060101 100%) !important;
-            border-color: rgba(239, 68, 68, 0.4) !important;
-        }
-
-        .country-box {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .country-dead {
-            filter: grayscale(1) opacity(0.25);
-            text-decoration: line-through;
-            transform: scale(0.96);
-        }
+        .card-animate { animation: fadeInUp 0.4s ease-out both; }
+        .status-capilla { animation: floatWarning 2.5s infinite ease-in-out; background: linear-gradient(135deg, #151426 0%, #0d1220 100%) !important; }
+        .status-gameover { animation: earthquake 0.5s ease-in-out both; filter: grayscale(0.8); opacity: 0.35; background: linear-gradient(135deg, #1a0808 0%, #060101 100%) !important; border-color: rgba(239, 68, 68, 0.3) !important; }
+        
+        .country-box { transition: all 0.3s ease; }
+        .country-dead { filter: grayscale(1) opacity(0.25); text-decoration: line-through; }
     </style>
 </head>
 <body class="p-4 md:p-8 font-sans">
@@ -68,7 +40,7 @@
         </h1>
         <div class="flex items-center justify-center gap-3 mb-3">
             <span class="bg-slate-800 text-slate-400 text-[10px] font-mono px-2.5 py-0.5 rounded-md border border-slate-700 tracking-wider">
-                v2.2 - Animaciones & Hojas
+                v2.3 - Simulador Brackets Fixed
             </span>
             <div class="bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 font-black text-xs px-4 py-0.5 rounded-full shadow-lg">
                 💰 POZO: S/. 400
@@ -77,10 +49,10 @@
     </div>
 
     <div class="max-w-6xl mx-auto flex border-b border-slate-800 mb-6 text-sm md:text-base font-black tracking-wide">
-        <button onclick="switchTab('polla')" id="btn-tab-polla" class="flex-1 py-3 text-center border-b-4 border-transparent tab-active transition-all">
+        <button onclick="switchTab('polla')" id="btn-tab-polla" class="flex-1 py-3 text-center border-b-4 transition-all duration-200 text-green-400 border-green-500">
             📊 Mi Polla (Posiciones)
         </button>
-        <button onclick="switchTab('avance')" id="btn-tab-avance" class="flex-1 py-3 text-center border-b-4 border-transparent text-slate-400 hover:text-slate-200 transition-all">
+        <button onclick="switchTab('avance')" id="btn-tab-avance" class="flex-1 py-3 text-center border-b-4 transition-all duration-200 text-slate-400 border-transparent hover:text-slate-200">
             🏆 Avance del Torneo
         </button>
     </div>
@@ -88,30 +60,28 @@
     <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         <div class="bg-slate-900/90 p-5 rounded-2xl shadow-2xl border border-slate-800 h-fit backdrop-blur-md">
-            <h2 class="text-base font-extrabold text-green-400 mb-3 flex items-center gap-2">
+            <h2 class="text-base font-extrabold text-green-400 mb-2 flex items-center gap-2">
                 ⚙️ Panel de Control Técnico
             </h2>
-            <p class="text-[11px] text-slate-400 mb-4 font-medium">Haz clic en los botones para detonar los efectos interactivos:</p>
-            <div id="country-controls" class="space-y-2"></div>
+            <p class="text-[11px] text-slate-400 mb-4">Haz clic para cambiar el estado general de los países:</p>
+            <div id="country-controls" class="space-y-1.5"></div>
         </div>
 
         <div id="tab-content-polla" class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
             </div>
 
-        <div id="tab-content-avance" class="lg:col-span-2 bg-slate-900/40 p-6 rounded-2xl border border-slate-800/80 hidden">
-            <h2 class="text-lg font-black text-slate-200 mb-5 border-b border-slate-800 pb-2 flex items-center gap-2">
-                🔀 Clasificación y Llaves en Vivo
-            </h2>
-            <div class="space-y-6">
-                <div>
-                    <h3 class="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-3">📍 Siguen en Competencia</h3>
-                    <div id="avance-vivos" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
-                </div>
-                <div class="pt-4 border-t border-slate-800/50">
-                    <h3 class="text-[10px] font-black text-rose-400 uppercase tracking-widest mb-3">❌ Países Eliminados</h3>
-                    <div id="avance-muertos" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
+        <div id="tab-content-avance" class="lg:col-span-2 bg-slate-900/40 p-5 rounded-2xl border border-slate-800 hidden">
+            <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-slate-800 pb-3 mb-4 gap-2">
+                <h2 class="text-base font-black text-slate-200 flex items-center gap-2">🔀 Simulador de Llaves Directas</h2>
+                <div class="flex bg-slate-950 p-1 rounded-lg border border-slate-800 text-[11px] font-bold">
+                    <button onclick="filterRound(16)" id="r-btn-16" class="px-2.5 py-1 rounded bg-slate-800 text-green-400">16avos</button>
+                    <button onclick="filterRound(8)" id="r-btn-8" class="px-2.5 py-1 rounded text-slate-400">Octavos</button>
+                    <button onclick="filterRound(4)" id="r-btn-4" class="px-2.5 py-1 rounded text-slate-400">Cuartos</button>
+                    <button onclick="filterRound(2)" id="r-btn-2" class="px-2.5 py-1 rounded text-slate-400">Semis/Final</button>
                 </div>
             </div>
+            
+            <div id="bracket-matches-container" class="space-y-3"></div>
         </div>
 
     </div>
@@ -128,16 +98,41 @@
             { name: "Andre", c1: "Holanda", flag1: "🇳🇱", c2: "Portugal", flag2: "🇵🇹" }
         ];
 
-        const flags = { "Japón": "🇯🇵", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Portugal": "🇵🇹", "Marruecos": "🇲🇦", "Alemania": "🇩🇪", "España": "🇪🇸", "Francia": "🇫🇷", "Holanda": "🇳🇱" };
+        const flags = { "Japón": "🇯🇵", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Portugal": "🇵🇹", "Marruecos": "🇲🇦", "Alemania": "🇩🇪", "España": "🇪🇸", "Francia": "🇫🇷", "Holanda": "🇳🇱", "Suecia": "🇸🇪", "Sudáfrica": "🇿🇦", "Canadá": "🇨🇦", "Países Bajos": "🇳🇱", "Croacia": "🇭🇷", "Austria": "🇦🇹", "Estados Unidos": "🇺🇸", "Bosnia": "🇧🇦", "Bélgica": "🇧🇪", "Senegal": "🇸🇳", "Costa de Marfil": "🇨🇮", "Noruega": "🇳🇴", "México": "🇲🇽", "Ecuador": "🇪🇨", "RD Congo": "🇨🇩", "Cabo Verde": "🇨🇻", "Australia": "🇦🇺", "Egipto": "🇪🇬", "Suiza": "🇨🇭", "Argelia": "🇩🇿", "Colombia": "🇨🇴", "Ghana": "🇬🇭", "Por definir": "🏳️" };
 
         let countryStatus = JSON.parse(localStorage.getItem('wc2026_status')) || {
-            "Japón": false, "Alemania": false, "Inglaterra": true, "Argentina": true,
-            "Brasil": true, "Portugal": true, "Marruecos": true, "España": true,
-            "Francia": true, "Holanda": true
+            "Japón": false, "Alemania": false, "Inglaterra": true, "Argentina": true, "Brasil": true, "Portugal": true, "Marruecos": true, "España": true, "Francia": true, "Holanda": true
         };
 
+        // Base de datos del simulador de llaves (16 partidos iniciales de tus imágenes)
+        let simulationData = JSON.parse(localStorage.getItem('wc2026_sim')) || {
+            r16: [
+                { id: 1, t1: "Alemania", t2: "Paraguay", w: "Paraguay", date: "Definido" },
+                { id: 2, t1: "Francia", t2: "Suecia", w: "Francia", date: "Definido" },
+                { id: 3, t1: "Sudáfrica", t2: "Canadá", w: "Canadá", date: "Definido" },
+                { id: 4, t1: "Países Bajos", t2: "Marruecos", w: "Marruecos", date: "Definido" },
+                { id: 5, t1: "Portugal", t2: "Croacia", w: null, date: "Por jugar" },
+                { id: 6, t1: "España", t2: "Austria", w: null, date: "Por jugar" },
+                { id: 7, t1: "Estados Unidos", t2: "Bosnia", w: null, date: "Por jugar" },
+                { id: 8, t1: "Bélgica", t2: "Senegal", w: null, date: "Por jugar" },
+                { id: 9, t1: "Brasil", t2: "Japón", w: "Brasil", date: "Definido" },
+                { id: 10, t1: "Costa de Marfil", t2: "Noruega", w: null, date: "Por jugar" },
+                { id: 11, t1: "México", t2: "Ecuador", w: null, date: "Por jugar" },
+                { id: 12, t1: "Inglaterra", t2: "RD Congo", w: null, date: "Por jugar" },
+                { id: 13, t1: "Argentina", t2: "Cabo Verde", w: null, date: "Por jugar" },
+                { id: 14, t1: "Australia", t2: "Egipto", w: null, date: "Por jugar" },
+                { id: 15, t1: "Suiza", t2: "Argelia", w: null, date: "Por jugar" },
+                { id: 16, t1: "Colombia", t2: "Ghana", w: null, date: "Por jugar" }
+            ],
+            r8: Array(8).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "4 jul / 5 jul" })),
+            r4: Array(4).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "9 jul / 10 jul" })),
+            r2: Array(2).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "11 jul / 15 jul" }))
+        };
+
+        let currentActiveRound = 16;
         let previousLivesState = {};
 
+        // REPARACIÓN COMPLETA DE CLASES EN NAVEGACIÓN
         function switchTab(tab) {
             const pollaContent = document.getElementById('tab-content-polla');
             const avanceContent = document.getElementById('tab-content-avance');
@@ -147,22 +142,32 @@
             if(tab === 'polla') {
                 pollaContent.classList.remove('hidden');
                 avanceContent.classList.add('hidden');
-                btnPolla.classList.add('tab-active');
-                btnAvance.classList.remove('tab-active');
-                btnAvance.classList.add('text-slate-400');
+                btnPolla.className = "flex-1 py-3 text-center border-b-4 transition-all duration-200 text-green-400 border-green-500 font-black tracking-wide";
+                btnAvance.className = "flex-1 py-3 text-center border-b-4 transition-all duration-200 text-slate-400 border-transparent hover:text-slate-200 font-black tracking-wide";
             } else {
                 pollaContent.classList.add('hidden');
                 avanceContent.classList.remove('hidden');
-                btnAvance.classList.add('tab-active');
-                btnPolla.classList.remove('tab-active');
-                btnPolla.classList.add('text-slate-400');
+                btnAvance.className = "flex-1 py-3 text-center border-b-4 transition-all duration-200 text-green-400 border-green-500 font-black tracking-wide";
+                btnPolla.className = "flex-1 py-3 text-center border-b-4 transition-all duration-200 text-slate-400 border-transparent hover:text-slate-200 font-black tracking-wide";
             }
+        }
+
+        function filterRound(round) {
+            currentActiveRound = round;
+            [16, 8, 4, 2].forEach(r => {
+                const btn = document.getElementById(`r-btn-${r}`);
+                if(r === round) { btn.className = "px-2.5 py-1 rounded bg-slate-800 text-green-400"; }
+                else { btn.className = "px-2.5 py-1 rounded text-slate-400"; }
+            });
+            renderAvanceTorneo();
         }
 
         function saveAndRender(triggerShakeFor = null) {
             localStorage.setItem('wc2026_status', JSON.stringify(countryStatus));
+            localStorage.setItem('wc2026_sim', JSON.stringify(simulationData));
             renderControls();
             renderPollaBoard(triggerShakeFor);
+            calculateNextRounds();
             renderAvanceTorneo();
         }
 
@@ -172,13 +177,11 @@
             Object.keys(countryStatus).sort().forEach(country => {
                 const isAlive = countryStatus[country];
                 const btnClass = isAlive ? 'bg-emerald-600' : 'bg-rose-600';
-                const label = isAlive ? 'VIVO' : 'ELIMINADO';
-                
                 container.innerHTML += `
-                    <div class="flex justify-between items-center bg-slate-950/50 p-2 rounded-xl border border-slate-800/60">
-                        <span class="font-bold text-xs text-slate-300 tracking-wide">${country}</span>
-                        <button onclick="toggleCountry('${country}')" class="${btnClass} text-white text-[10px] font-black px-3 py-1 rounded-lg transition-all transform active:scale-95 tracking-wider">
-                            ${label}
+                    <div class="flex justify-between items-center bg-slate-950/40 p-2 rounded-xl border border-slate-800/60">
+                        <span class="font-bold text-xs text-slate-300">${country}</span>
+                        <button onclick="toggleCountry('${country}')" class="${btnClass} text-white text-[10px] font-black px-3 py-1 rounded-lg transition-all transform active:scale-95">
+                            ${isAlive ? 'VIVO' : 'ELIMINADO'}
                         </button>
                     </div>
                 `;
@@ -197,85 +200,115 @@
                 let stateClass = 'border-slate-800 bg-slate-900/40';
                 let badge = `<span class="bg-emerald-500/10 text-emerald-400 text-xs px-2.5 py-0.5 rounded-full border border-emerald-500/20 font-black">Vidas: 2/2</span>`;
 
-                if (lives === 1) {
-                    stateClass = 'status-capilla';
-                    badge = `<span class="bg-amber-500/20 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-500/30 font-black">⚠️ EN CAPILLA</span>`;
-                } else if (lives === 0) {
-                    stateClass = 'status-gameover';
-                    badge = `<span class="bg-rose-950 text-rose-400 text-xs px-2.5 py-0.5 rounded-full border border-rose-500/20 font-black tracking-widest">💀 FUERA</span>`;
-                }
+                if (lives === 1) { stateClass = 'status-capilla'; badge = `<span class="bg-amber-500/20 text-amber-400 text-xs px-2.5 py-0.5 rounded-full border border-amber-500/30 font-black">⚠️ CAPILLA</span>`; }
+                else if (lives === 0) { stateClass = 'status-gameover'; badge = `<span class="bg-rose-950 text-rose-400 text-xs px-2.5 py-0.5 rounded-full border border-rose-500/20 font-black">💀 FUERA</span>`; }
 
-                if (triggerShakeFor === p.name) {
-                    stateClass += ' status-gameover';
-                }
-
-                const delay = index * 0.04;
+                if (triggerShakeFor === p.name) { stateClass += ' status-gameover'; }
 
                 container.innerHTML += `
-                    <div class="card-animate ${stateClass} p-4 rounded-xl border transition-all shadow-xl" style="animation-delay: ${delay}s">
+                    <div class="card-animate ${stateClass} p-4 rounded-xl border shadow-xl" style="animation-delay: ${index * 0.03}s">
                         <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-base font-black text-slate-200 uppercase tracking-wide">${p.name}</h3>
+                            <h3 class="text-base font-black text-slate-200 uppercase">${p.name}</h3>
                             ${badge}
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div class="country-box p-2.5 rounded-lg bg-slate-950/40 border border-slate-800/40 flex items-center justify-center gap-2 ${!c1Alive ? 'country-dead text-slate-500' : 'text-slate-200 font-bold'}">
                                 <span class="text-lg flex-shrink-0">${p.flag1}</span>
-                                <span class="text-xs tracking-wide whitespace-nowrap">${p.c1}</span>
+                                <span class="text-xs whitespace-nowrap">${p.c1}</span>
                             </div>
                             <div class="country-box p-2.5 rounded-lg bg-slate-950/40 border border-slate-800/40 flex items-center justify-center gap-2 ${!c2Alive ? 'country-dead text-slate-500' : 'text-slate-200 font-bold'}">
                                 <span class="text-lg flex-shrink-0">${p.flag2}</span>
-                                <span class="text-xs tracking-wide whitespace-nowrap">${p.c2}</span>
+                                <span class="text-xs whitespace-nowrap">${p.c2}</span>
                             </div>
                         </div>
                     </div>
                 `;
-                
                 previousLivesState[p.name] = lives;
             });
         }
 
-        function renderAvanceTorneo() {
-            const vivosContainer = document.getElementById('avance-vivos');
-            const muertosContainer = document.getElementById('avance-muertos');
-            
-            vivosContainer.innerHTML = '';
-            muertosContainer.innerHTML = '';
+        // Lógica algorítmica estilo 365scores para arrastrar ganadores a las siguientes llaves
+        function calculateNextRounds() {
+            // De 16avos a Octavos (r16 -> r8)
+            for (let i = 0; i < 8; i++) {
+                simulationData.r8[i].t1 = simulationData.r16[i*2].w || "Por definir";
+                simulationData.r8[i].t2 = simulationData.r16[i*2 + 1].w || "Por definir";
+            }
+            // De Octavos a Cuartos (r8 -> r4)
+            for (let i = 0; i < 4; i++) {
+                simulationData.r4[i].t1 = simulationData.r8[i*2].w || "Por definir";
+                simulationData.r4[i].t2 = simulationData.r8[i*2 + 1].w || "Por definir";
+            }
+            // De Cuartos a Semis/Final (r4 -> r2)
+            for (let i = 0; i < 2; i++) {
+                simulationData.r2[i].t1 = simulationData.r4[i*2].w || "Por definir";
+                simulationData.r2[i].t2 = simulationData.r4[i*2 + 1].w || "Por definir";
+            }
+        }
 
-            Object.keys(countryStatus).sort().forEach(country => {
-                const isAlive = countryStatus[country];
-                const template = `
-                    <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700/50 flex items-center gap-3 shadow-md">
-                        <span class="text-xl flex-shrink-0">${flags[country]}</span>
-                        <span class="text-xs font-bold text-slate-200">${country}</span>
+        function simulateWinner(roundKey, matchId, teamIndex) {
+            const roundArr = simulationData[roundKey];
+            const match = roundArr.find(m => m.id === matchId);
+            const selectedTeam = teamIndex === 1 ? match.t1 : match.t2;
+            
+            if (selectedTeam === "Por definir") return;
+
+            // Alternar selección (Toggle)
+            if (match.w === selectedTeam) { match.w = null; } 
+            else { match.w = selectedTeam; }
+
+            saveAndRender();
+        }
+
+        function renderAvanceTorneo() {
+            const container = document.getElementById('bracket-matches-container');
+            container.innerHTML = '';
+            
+            let currentRoundKey = `r${currentActiveRound}`;
+            let currentData = simulationData[currentRoundKey];
+
+            currentData.forEach(m => {
+                const f1 = flags[m.t1] || "🏳️";
+                const f2 = flags[m.t2] || "🏳️";
+                
+                const t1Selected = m.w === m.t1 && m.w !== null;
+                const t2Selected = m.w === m.t2 && m.w !== null;
+
+                container.innerHTML += `
+                    <div class="bg-slate-950/40 border border-slate-800/80 rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md">
+                        <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">${m.date}</div>
+                        
+                        <div class="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-xl">
+                            <div onclick="simulateWinner('${currentRoundKey}', ${m.id}, 1)" class="cursor-pointer p-2 rounded-lg bg-slate-900/60 border border-slate-800 flex items-center justify-between hover:border-slate-700 transition-all">
+                                <div class="flex items-center gap-2 truncate">
+                                    <span class="text-base">${f1}</span>
+                                    <span class="text-xs font-bold truncate text-slate-300">${m.t1}</span>
+                                </div>
+                                <div class="w-3 h-3 rounded-full border-2 transition-all ${t1Selected ? 'bg-green-500 border-green-400 shadow-[0_0_8px_#22c55e]' : 'border-slate-700 bg-transparent'}"></div>
+                            </div>
+
+                            <div onclick="simulateWinner('${currentRoundKey}', ${m.id}, 2)" class="cursor-pointer p-2 rounded-lg bg-slate-900/60 border border-slate-800 flex items-center justify-between hover:border-slate-700 transition-all">
+                                <div class="flex items-center gap-2 truncate">
+                                    <span class="text-base">${f2}</span>
+                                    <span class="text-xs font-bold truncate text-slate-300">${m.t2}</span>
+                                </div>
+                                <div class="w-3 h-3 rounded-full border-2 transition-all ${t2Selected ? 'bg-green-500 border-green-400 shadow-[0_0_8px_#22c55e]' : 'border-slate-700 bg-transparent'}"></div>
+                            </div>
+                        </div>
                     </div>
                 `;
-
-                if(isAlive) {
-                    vivosContainer.innerHTML += template;
-                } else {
-                    muertosContainer.innerHTML += `
-                        <div class="p-3 bg-slate-950/40 rounded-xl border border-slate-900 text-slate-600 line-through flex items-center gap-3 grayscale opacity-30 shadow-none">
-                            <span class="text-xl flex-shrink-0">${flags[country]}</span>
-                            <span class="text-xs font-bold">${country}</span>
-                        </div>
-                    `;
-                }
             });
         }
 
         function toggleCountry(country) {
             countryStatus[country] = !countryStatus[country];
-            
             let shockedParticipant = null;
             participants.forEach(p => {
                 const c1Alive = countryStatus[p.c1];
                 const c2Alive = countryStatus[p.c2];
                 const currentLives = (c1Alive ? 1 : 0) + (c2Alive ? 1 : 0);
-                if (previousLivesState[p.name] === 1 && currentLives === 0) {
-                    shockedParticipant = p.name;
-                }
+                if (previousLivesState[p.name] === 1 && currentLives === 0) { shockedParticipant = p.name; }
             });
-
             saveAndRender(shockedParticipant);
         }
 
