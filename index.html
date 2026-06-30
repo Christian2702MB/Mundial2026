@@ -1,47 +1,110 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mundial de Vidas 2026 - Polla Familiar</title>
-    <!-- Tailwind CSS para diseño moderno de TV deportiva -->
+    <!-- Tailwind CSS para diseño base de TV deportiva -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #0f172a; color: #f8fafc; }
-        .card-eliminated { filter: grayscale(1) opacity(0.35); text-decoration: line-through; }
+        body { background-color: #0b0f19; color: #f8fafc; overflow-x: hidden; }
+        
+        /* --- ANIMACIONES AVANZADAS --- */
+        
+        /* Animación de entrada para aparición fluida */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animación de temblor violento para el Game Over */
+        @keyframes earthquake {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            10% { transform: translateX(-8px) rotate(-1.5deg); }
+            30% { transform: translateX(6px) rotate(1deg); }
+            50% { transform: translateX(-6px) rotate(-1deg); }
+            70% { transform: translateX(4px) rotate(0.5deg); }
+            90% { transform: translateX(-2px) rotate(-0.5deg); }
+        }
+
+        /* Animación de respiración/flote para los que están en capilla */
+        @keyframes floatWarning {
+            0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15); }
+            50% { transform: translateY(-4px) scale(1.01); box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3); }
+        }
+
+        /* Clases de estado con transiciones fluidas */
+        .card-animate {
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .country-box {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Estilo dinámico para país muerto */
+        .country-dead {
+            filter: grayscale(1) opacity(0.25);
+            transform: scale(0.95);
+            position: relative;
+        }
+        
+        .country-dead::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent 48%, #ef4444 49%, #ef4444 51%, transparent 52%);
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        /* Estilo dinámico para En Capilla (1 Vida) */
+        .status-capilla {
+            animation: floatWarning 3s ease-in-out infinite;
+            border-color: rgba(245, 158, 11, 0.6) !important;
+            background: linear-gradient(135deg, #1e1b4b 0%, #111827 100%) !important;
+        }
+
+        /* Estilo dinámico para Game Over (0 Vidas) */
+        .status-gameover {
+            animation: earthquake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+            filter: grayscale(0.9) opacity(0.4);
+            background: linear-gradient(135deg, #180505 0%, #030000 100%) !important;
+            border-color: rgba(239, 68, 68, 0.5) !important;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.15) !important;
+            transform: scale(0.98);
+        }
     </style>
 </head>
 <body class="p-4 md:p-8 font-sans">
 
     <!-- Encabezado Principal -->
     <div class="max-w-6xl mx-auto text-center mb-8">
-        <h1 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 uppercase tracking-wider mb-2">
+        <h1 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-cyan-400 to-blue-500 uppercase tracking-wider mb-2 drop-shadow-sm">
             🏆 Mundial de Vidas 2026 🏆
         </h1>
-        <div class="inline-block bg-yellow-500 text-slate-900 font-extrabold text-xl md:text-2xl px-6 py-2 rounded-full shadow-lg animate-pulse">
+        <div class="inline-block bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 font-black text-xl md:text-2xl px-8 py-2 rounded-full shadow-2xl tracking-wide">
             💰 POZO: S/. 400
         </div>
     </div>
 
     <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- PANEL DE CONTROL (ADMINISTRADOR) -->
-        <div class="bg-slate-800 p-6 rounded-2xl shadow-xl border border-slate-700 h-fit">
-            <h2 class="text-xl font-bold text-green-400 mb-4 flex items-center gap-2">
-                ⚙️ Panel de Control Técnico
+        <!-- PANEL DE CONTROL -->
+        <div class="bg-slate-900/90 p-6 rounded-2xl shadow-2xl border border-slate-800 h-fit backdrop-blur-md">
+            <h2 class="text-xl font-extrabold text-green-400 mb-4 flex items-center gap-2">
+                ⚙️ Panel Técnico Activo
             </h2>
-            <p class="text-xs text-slate-400 mb-4">Haz clic en los botones para cambiar el estado en tiempo real:</p>
-            <div id="country-controls" class="space-y-2"></div>
+            <p class="text-xs text-slate-400 mb-4 font-medium">Gestiona las eliminaciones instantáneas haciendo clic abajo:</p>
+            <div id="country-controls" class="space-y-2.5"></div>
         </div>
 
         <!-- TABLERO EN VIVO DE LA FAMILIA -->
-        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4" id="family-board">
-            <!-- Las tarjetas se generan dinámicamente aquí -->
+        <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-5" id="family-board">
+            <!-- Las tarjetas se procesan aquí -->
         </div>
     </div>
 
     <script>
-        // Configuración inicial de la polla familiar
         const participants = [
             { name: "Sergio", c1: "Japón", flag1: "🇯🇵", c2: "Inglaterra", flag2: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
             { name: "Beatriz", c1: "Argentina", flag1: "🇦🇷", c2: "Brasil", flag2: "🇧🇷" },
@@ -53,17 +116,19 @@
             { name: "Andre", c1: "Holanda", flag1: "🇳🇱", c2: "Portugal", flag2: "🇵🇹" }
         ];
 
-        // Estado de los países (Japón y Alemania ya eliminados en la pizarra original)
         let countryStatus = JSON.parse(localStorage.getItem('wc2026_status')) || {
             "Japón": false, "Alemania": false, "Inglaterra": true, "Argentina": true,
             "Brasil": true, "Portugal": true, "Marruecos": true, "España": true,
-            "Francia": true, "Holanda": true
+            "Francia": true, "Holanda": false
         };
 
-        function saveAndRender() {
+        // Guardar el estado anterior de juego de cada participante para saber cuándo disparar el sismo
+        let previousLivesState = {};
+
+        function saveAndRender(triggerShakeFor = null) {
             localStorage.setItem('wc2026_status', JSON.stringify(countryStatus));
             renderControls();
-            renderBoard();
+            renderBoard(triggerShakeFor);
         }
 
         function renderControls() {
@@ -71,13 +136,13 @@
             container.innerHTML = '';
             Object.keys(countryStatus).sort().forEach(country => {
                 const isAlive = countryStatus[country];
-                const btnClass = isAlive ? 'bg-green-600 hover:bg-green-500' : 'bg-red-600 hover:bg-red-500';
+                const btnClass = isAlive ? 'bg-emerald-600 shadow-emerald-900/30' : 'bg-rose-600 shadow-rose-900/30';
                 const label = isAlive ? 'VIVO' : 'ELIMINADO';
                 
                 container.innerHTML += `
-                    <div class="flex justify-between items-center bg-slate-900/50 p-2 rounded-xl border border-slate-700/50">
-                        <span class="font-medium text-sm text-slate-200">${country}</span>
-                        <button onclick="toggleCountry('${country}')" class="${btnClass} text-white text-xs font-black px-3 py-1 rounded-lg transition-all duration-200 shadow">
+                    <div class="flex justify-between items-center bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/60 hover:border-slate-700 transition-all">
+                        <span class="font-bold text-sm tracking-wide text-slate-300">${country}</span>
+                        <button onclick="toggleCountry('${country}')" class="${btnClass} text-white text-xs font-black px-4 py-1.5 rounded-lg transition-all duration-300 shadow-md transform active:scale-95 tracking-wider">
                             ${label}
                         </button>
                     </div>
@@ -85,52 +150,78 @@
             });
         }
 
-        function renderBoard() {
+        function renderBoard(triggerShakeFor) {
             const container = document.getElementById('family-board');
             container.innerHTML = '';
 
-            participants.forEach(p => {
+            participants.forEach((p, index) => {
                 const c1Alive = countryStatus[p.c1];
                 const c2Alive = countryStatus[p.c2];
-                const isGameOver = !c1Alive && !c2Alive;
                 const lives = (c1Alive ? 1 : 0) + (c2Alive ? 1 : 0);
-
-                let statusColor = 'border-green-500/30 bg-slate-800';
-                let badge = `<span class="bg-green-500/20 text-green-400 text-xs px-2 py-0.5 rounded-md font-bold">Vidas: ${lives}/2</span>`;
+                
+                let stateClass = 'border-slate-800 bg-slate-900/50';
+                let badge = `<span class="bg-emerald-500/10 text-emerald-400 text-xs px-3 py-1 rounded-full border border-emerald-500/20 font-black">Vidas: 2/2</span>`;
 
                 if (lives === 1) {
-                    statusColor = 'border-yellow-500/50 bg-slate-800 animate-pulse';
-                    badge = `<span class="bg-yellow-500/20 text-yellow-400 text-xs px-2 py-0.5 rounded-md font-bold">⚠️ EN CAPILLA</span>`;
-                } else if (isGameOver) {
-                    statusColor = 'border-red-600/40 bg-slate-950 card-eliminated';
-                    badge = `<span class="bg-red-600 text-white text-xs px-2 py-0.5 rounded-md font-black tracking-widest">💀 GAME OVER</span>`;
+                    stateClass = 'status-capilla';
+                    badge = `<span class="bg-amber-500/20 text-amber-400 text-xs px-3 py-1 rounded-full border border-amber-500/30 font-black tracking-wide">⚠️ EN CAPILLA</span>`;
+                } else if (lives === 0) {
+                    // Si acaba de perder su última vida, se aplica la animación de sismo
+                    stateClass = (triggerShakeFor === p.name) ? 'status-gameover' : 'status-gameover';
+                    badge = `<span class="bg-rose-950 text-rose-400 text-xs px-3 py-1 rounded-full border border-rose-500/40 font-black tracking-widest">💀 ELIMINADO</span>`;
                 }
 
+                // Calcular retraso de animación en cascada inicial
+                const delay = index * 0.05;
+
                 container.innerHTML += `
-                    <div class="p-5 rounded-2xl border transition-all duration-300 shadow-md ${statusColor}">
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-lg font-black text-white uppercase">${p.name}</h3>
+                    <div class="card-animate ${stateClass} p-5 rounded-2xl border shadow-xl" style="animation-delay: ${delay}s">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-black text-slate-100 uppercase tracking-wide">${p.name}</h3>
                             ${badge}
                         </div>
-                        <div class="grid grid-cols-2 gap-2 text-center text-sm">
-                            <div class="p-2 rounded-xl bg-slate-900/40 ${!c1Alive ? 'line-through text-slate-500' : 'font-bold text-slate-300'}">
-                                <span class="text-xl mr-1">${p.flag1}</span> ${p.c1}
+                        <div class="grid grid-cols-2 gap-3 text-center text-sm">
+                            <div class="country-box p-3 rounded-xl bg-slate-950/50 border border-slate-800/40 flex flex-col items-center justify-center gap-1 ${!c1Alive ? 'country-dead text-slate-600' : 'font-bold text-slate-200'}" style="height: 68px;">
+                                <span class="text-2xl">${p.flag1}</span>
+                                <span class="truncate max-w-full">${p.c1}</span>
                             </div>
-                            <div class="p-2 rounded-xl bg-slate-900/40 ${!c2Alive ? 'line-through text-slate-500' : 'font-bold text-slate-300'}">
-                                <span class="text-xl mr-1">${p.flag2}</span> ${p.c2}
+                            <div class="country-box p-3 rounded-xl bg-slate-950/50 border border-slate-800/40 flex flex-col items-center justify-center gap-1 ${!c2Alive ? 'country-dead text-slate-600' : 'font-bold text-slate-200'}" style="height: 68px;">
+                                <span class="text-2xl">${p.flag2}</span>
+                                <span class="truncate max-w-full">${p.c2}</span>
                             </div>
                         </div>
                     </div>
                 `;
+                
+                previousLivesState[p.name] = lives;
             });
         }
 
         function toggleCountry(country) {
             countryStatus[country] = !countryStatus[country];
-            saveAndRender();
+            
+            // Buscar si algún participante se fue a quiebra absoluta con este cambio para activar el sismo de esa tarjeta
+            let shockedParticipant = null;
+            participants.forEach(p => {
+                const c1Alive = countryStatus[p.c1];
+                const c2Alive = countryStatus[p.c2];
+                const currentLives = (c1Alive ? 1 : 0) + (c2Alive ? 1 : 0);
+                
+                if (previousLivesState[p.name] === 1 && currentLives === 0) {
+                    shockedParticipant = p.name;
+                }
+            });
+
+            saveAndRender(shockedParticipant);
         }
 
-        // Ejecución inicial
+        // Inicialización de estados
+        participants.forEach(p => {
+            const c1Alive = countryStatus[p.c1];
+            const c2Alive = countryStatus[p.c2];
+            previousLivesState[p.name] = (c1Alive ? 1 : 0) + (c2Alive ? 1 : 0);
+        });
+
         saveAndRender();
     </script>
 </body>
