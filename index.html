@@ -57,7 +57,7 @@
 
     <!-- Banner de Notificación de Modo Captura -->
     <div id="screenshot-toast" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-slate-950 font-black text-xs px-6 py-2.5 rounded-full shadow-2xl z-50 tracking-wide uppercase">
-        📸 Modo Captura Activo - Toca cualquier parte para salir
+        📸 Modo Captura - Toca para salir
     </div>
 
     <!-- Encabezado Principal Premium UI/UX -->
@@ -79,7 +79,7 @@
         </h1>
         <div class="flex items-center justify-center gap-3 mb-2">
             <span class="bg-slate-800 text-slate-400 text-[10px] font-mono px-2.5 py-0.5 rounded-md border border-slate-700 tracking-wider hide-on-screenshot">
-                v5.8 - Viewport Max
+                v5.9 - Pixel Perfect
             </span>
             <div class="bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 font-black text-xs px-4 py-0.5 rounded-full shadow-lg">
                 💰 POZO: S/. 400
@@ -134,7 +134,7 @@
             <div id="leaderboard-cards" class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 h-fit"></div>
         </div>
 
-        <!-- PESTAÑA 2: AVANCE DEL TORNEO (BRACKETS CON ALINEACIÓN BLINDADA) -->
+        <!-- PESTAÑA 2: AVANCE DEL TORNEO -->
         <div id="tab-content-avance" class="bg-slate-900/40 p-3 sm:p-5 rounded-2xl border border-slate-800 hidden max-w-4xl mx-auto w-full overflow-hidden">
             <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-slate-800 pb-3 mb-4 gap-2">
                 <div>
@@ -162,10 +162,11 @@
 
     </div>
 
-    <!-- BOTÓN FLOTANTE MODO FOTO WHATSAPP (Alineación Forzada anti-desbordes móviles) -->
-    <button onclick="enterScreenshotMode(event)" id="btn-screenshot-float" class="hide-on-screenshot fixed bottom-6 right-6 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-slate-950 p-3.5 rounded-full shadow-[0_8px_30px_rgba(34,197,94,0.4)] transition-all transform hover:scale-110 active:scale-95 z-50" title="Modo Captura WhatsApp">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0110 4.186h4a2.31 2.31 0 013.173 1.989l.062.496a.515.515 0 00.416.441a4.497 4.497 0 01-3.848 4.422v5.131a4.497 4.497 0 01-4.497 4.497H6.997a4.497 4.497 0 01-4.497-4.497v-5.131a4.497 4.497 0 013.847-4.422a.515.515 0 00.417-.441l.063-.496zm3.673 6.825a1.5 1.5 0 113 0a1.5 1.5 0 01-3 0z"></path>
+    <!-- BOTÓN FLOTANTE MODO FOTO WHATSAPP (Mejorado con Icono Sólido de Alta Fidelidad UI) -->
+    <button onclick="enterScreenshotMode(event)" id="btn-screenshot-float" class="hide-on-screenshot fixed bottom-6 right-6 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-slate-950 p-3.5 rounded-full shadow-[0_8px_30px_rgba(34,197,94,0.4)] transition-all transform hover:scale-110 active:scale-95 z-50 flex items-center justify-center" title="Modo Captura WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
+            <path fill-rule="evenodd" d="M9.344 3.071a.45 .45 0 0 1 .896 0L10.74 5.5h2.521l.5-2.429a.45 .45 0 0 1 .896 0L15.157 5.5h2.593c1.242 0 2.25 1.008 2.25 2.25v10.5c0 1.242-1.008 2.25-2.25 2.25H6.25a2.25 2.25 0 0 1-2.25-2.25V7.75c0-1.242 1.008-2.25 2.25-2.25h2.593l.5-2.429ZM12 7.5a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5Z" clip-rule="evenodd" />
         </svg>
     </button>
 
@@ -181,9 +182,9 @@
             { name: "Andre", c1: "Holanda", flag1: "🇳🇱", c2: "Portugal", flag2: "🇵🇹" }
         ];
 
+        // Sincronización limpia del glosario de banderas
         const flags = { "Japón": "🇯🇵", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Portugal": "🇵🇹", "Marruecos": "🇲🇦", "Alemania": "🇩🇪", "España": "🇪🇸", "Francia": "🇫🇷", "Holanda": "🇳🇱", "Suecia": "🇸🇪", "Sudáfrica": "🇿🇦", "Canadá": "🇨🇦", "Países Bajos": "🇳🇱", "Croacia": "🇭🇷", "Austria": "🇦🇹", "Estados Unidos": "🇺🇸", "Bosnia": "🇧🇦", "Bélgica": "🇧🇪", "Senegal": "🇸🇳", "Costa de Marfil": "🇨🇮", "Noruega": "🇳🇴", "México": "🇲🇽", "Ecuador": "🇪🇨", "RD Congo": "🇨🇩", "Cabo Verde": "🇨🇻", "Australia": "🇦🇺", "Egipto": "🇪🇬", "Suiza": "🇨🇭", "Argelia": "🇩🇿", "Colombia": "🇨🇴", "Ghana": "🇬🇭", "Paraguay": "🇵🇾", "Por definir": "🏳️" };
 
-        // Forzar actualización de caché limpia v6 para todo el sistema
         let countryStatus = JSON.parse(localStorage.getItem('wc2026_status_v6')) || {
             "Japón": false, "Alemania": false, "Inglaterra": true, "Argentina": true, "Brasil": true, "Portugal": true, "Marruecos": true, "España": true, "Francia": true, "Holanda": true
         };
@@ -238,10 +239,16 @@
             return now.getDate() === day && now.getMonth() === months[monthStr];
         };
 
-        function getOwnersText(country) {
-            if (!country || country === "Por definir") return "";
-            const owners = participants.filter(p => p.c1 === country || p.c2 === country).map(p => p.name);
-            return owners.length > 0 ? `${owners.join(', ')}` : "";
+        function toggleControlPanel() {
+            const content = document.getElementById('panel-content');
+            const arrow = document.getElementById('panel-arrow');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                arrow.innerHTML = '🔼 OCULTAR';
+            } else {
+                content.classList.add('hidden');
+                arrow.innerHTML = '🔽 MOSTRAR';
+            }
         }
 
         function switchTab(tab) {
@@ -497,14 +504,12 @@
 
                 if (match2) {
                     htmlContent += `
-                        <!-- BLINDAJE UX: max-w-[calc(100%-8px)] añade un colchón de protección a la celda móvil para eliminar el desborde -->
                         <div class="relative bg-slate-950/20 border border-slate-800/40 p-2 rounded-2xl pr-10 sm:pr-12 shadow-inner max-w-[calc(100%-8px)] mx-auto w-full">
                             <div class="space-y-2 relative z-10 w-full">
                                 ${createMatchCard(match1)}
                                 ${createMatchCard(match2)}
                             </div>
                             
-                            <!-- Canal rígido derecho reposicionado -->
                             <div class="absolute top-0 bottom-0 right-0 w-10 sm:w-12 flex items-center justify-center pointer-events-none z-0">
                                 <div class="w-5 sm:w-6 h-1/2 border-r-2 border-y-2 ${extraLineClass} rounded-r-lg absolute left-1"></div>
                                 <div class="w-4 sm:w-5 border-t-2 ${extraLineClass} absolute right-0 top-1/2"></div>
