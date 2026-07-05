@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mundial de Fútbol 2026 - Polla Familiar</title>
     <!-- Tailwind CSS para diseño de TV deportiva de alto rendimiento -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -79,7 +79,7 @@
         </h1>
         <div class="flex items-center justify-center gap-3 mb-2">
             <span class="bg-slate-800 text-slate-400 text-[10px] font-mono px-2.5 py-0.5 rounded-md border border-slate-700 tracking-wider hide-on-screenshot">
-                v5.7 - Buster Engine
+                v5.8 - Viewport Max
             </span>
             <div class="bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 font-black text-xs px-4 py-0.5 rounded-full shadow-lg">
                 💰 POZO: S/. 400
@@ -134,8 +134,8 @@
             <div id="leaderboard-cards" class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 h-fit"></div>
         </div>
 
-        <!-- PESTAÑA 2: AVANCE DEL TORNEO (BRACKETS INMERSIVOS DE PANTALLA COMPLETA) -->
-        <div id="tab-content-avance" class="bg-slate-900/40 p-4 sm:p-5 rounded-2xl border border-slate-800 hidden max-w-4xl mx-auto">
+        <!-- PESTAÑA 2: AVANCE DEL TORNEO (BRACKETS CON ALINEACIÓN BLINDADA) -->
+        <div id="tab-content-avance" class="bg-slate-900/40 p-3 sm:p-5 rounded-2xl border border-slate-800 hidden max-w-4xl mx-auto w-full overflow-hidden">
             <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-slate-800 pb-3 mb-4 gap-2">
                 <div>
                     <h2 class="text-base font-black text-slate-200">🔀 Simulador de Llaves Directas</h2>
@@ -151,7 +151,7 @@
                 </div>
             </div>
             
-            <div id="bracket-matches-container" class="space-y-4"></div>
+            <div id="bracket-matches-container" class="space-y-4 w-full"></div>
             
             <div class="mt-6 pt-4 border-t border-slate-800/80 flex justify-end hide-on-screenshot">
                 <button onclick="resetSimulation()" class="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider bg-rose-950/30 text-rose-400 hover:bg-rose-900/40 border border-rose-900/40 px-3 py-1.5 rounded-lg transition-all active:scale-95">
@@ -162,8 +162,8 @@
 
     </div>
 
-    <!-- BOTÓN FLOTANTE MODO FOTO WHATSAPP -->
-    <button onclick="enterScreenshotMode(event)" id="btn-screenshot-float" class="hide-on-screenshot fixed bottom-6 right-6 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-slate-950 p-3.5 rounded-full shadow-[0_8px_30px_rgb(34,197,94,0.3)] transition-all transform hover:scale-110 active:scale-95 z-40" title="Modo Captura WhatsApp">
+    <!-- BOTÓN FLOTANTE MODO FOTO WHATSAPP (Alineación Forzada anti-desbordes móviles) -->
+    <button onclick="enterScreenshotMode(event)" id="btn-screenshot-float" class="hide-on-screenshot fixed bottom-6 right-6 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-slate-950 p-3.5 rounded-full shadow-[0_8px_30px_rgba(34,197,94,0.4)] transition-all transform hover:scale-110 active:scale-95 z-50" title="Modo Captura WhatsApp">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0110 4.186h4a2.31 2.31 0 013.173 1.989l.062.496a.515.515 0 00.416.441a4.497 4.497 0 01-3.848 4.422v5.131a4.497 4.497 0 01-4.497 4.497H6.997a4.497 4.497 0 01-4.497-4.497v-5.131a4.497 4.497 0 013.847-4.422a.515.515 0 00.417-.441l.063-.496zm3.673 6.825a1.5 1.5 0 113 0a1.5 1.5 0 01-3 0z"></path>
         </svg>
@@ -183,7 +183,7 @@
 
         const flags = { "Japón": "🇯🇵", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Portugal": "🇵🇹", "Marruecos": "🇲🇦", "Alemania": "🇩🇪", "España": "🇪🇸", "Francia": "🇫🇷", "Holanda": "🇳🇱", "Suecia": "🇸🇪", "Sudáfrica": "🇿🇦", "Canadá": "🇨🇦", "Países Bajos": "🇳🇱", "Croacia": "🇭🇷", "Austria": "🇦🇹", "Estados Unidos": "🇺🇸", "Bosnia": "🇧🇦", "Bélgica": "🇧🇪", "Senegal": "🇸🇳", "Costa de Marfil": "🇨🇮", "Noruega": "🇳🇴", "México": "🇲🇽", "Ecuador": "🇪🇨", "RD Congo": "🇨🇩", "Cabo Verde": "🇨🇻", "Australia": "🇦🇺", "Egipto": "🇪🇬", "Suiza": "🇨🇭", "Argelia": "🇩🇿", "Colombia": "🇨🇴", "Ghana": "🇬🇭", "Paraguay": "🇵🇾", "Por definir": "🏳️" };
 
-        // CACHE BUSTER: Actualizado a v6 para limpiar el almacenamiento viejo del navegador del usuario
+        // Forzar actualización de caché limpia v6 para todo el sistema
         let countryStatus = JSON.parse(localStorage.getItem('wc2026_status_v6')) || {
             "Japón": false, "Alemania": false, "Inglaterra": true, "Argentina": true, "Brasil": true, "Portugal": true, "Marruecos": true, "España": true, "Francia": true, "Holanda": true
         };
@@ -207,30 +207,27 @@
                 { id: 15, t1: "Suiza", t2: "Argelia", w: null, date: "2 JUL" },
                 { id: 16, t1: "Colombia", t2: "Ghana", w: null, date: "3 JUL" }
             ],
-            // MAPEO SINCRONIZADO: Corregido de raíz según la distribución e imágenes reales (78505_2.jpg y 78510.jpg)
             r8: [
-                { id: 1, t1: "Por definir", t2: "Por definir", w: null, date: "4 JUL", time: "2:00 p.m." }, // Paraguay vs Francia
-                { id: 2, t1: "Por definir", t2: "Por definir", w: null, date: "4 JUL", time: "7:00 p.m." }, // Canadá vs Marruecos
-                { id: 3, t1: "Por definir", t2: "Por definir", w: null, date: "6 JUL", time: "7:00 p.m." }, // Portugal vs España
-                { id: 4, t1: "Por definir", t2: "Por definir", w: null, date: "6 JUL", time: "2:00 p.m." }, // EE.UU vs Bélgica
-                { id: 5, t1: "Por definir", t2: "Por definir", w: null, date: "5 JUL", time: "3:00 p.m." }, // Brasil vs Noruega (HOY)
-                { id: 6, t1: "Por definir", t2: "Por definir", w: null, date: "5 JUL", time: "7:00 p.m." }, // México vs Inglaterra (HOY)
-                { id: 7, t1: "Por definir", t2: "Por definir", w: null, date: "7 JUL", time: "11:00 a.m." }, // Argentina vs Egipto
-                { id: 8, t1: "Por definir", t2: "Por definir", w: null, date: "7 JUL", time: "3:00 p.m." }  // Suiza vs Colombia
+                { id: 1, t1: "Por definir", t2: "Por definir", w: null, date: "4 JUL", time: "2:00 p.m." },
+                { id: 2, t1: "Por definir", t2: "Por definir", w: null, date: "4 JUL", time: "7:00 p.m." },
+                { id: 3, t1: "Por definir", t2: "Por definir", w: null, date: "6 JUL", time: "7:00 p.m." },
+                { id: 4, t1: "Por definir", t2: "Por definir", w: null, date: "6 JUL", time: "2:00 p.m." },
+                { id: 5, t1: "Por definir", t2: "Por definir", w: null, date: "5 JUL", time: "3:00 p.m." },
+                { id: 6, t1: "Por definir", t2: "Por definir", w: null, date: "5 JUL", time: "7:00 p.m." },
+                { id: 7, t1: "Por definir", t2: "Por definir", w: null, date: "7 JUL", time: "11:00 a.m." },
+                { id: 8, t1: "Por definir", t2: "Por definir", w: null, date: "7 JUL", time: "3:00 p.m." }
             ],
             r4: Array(4).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "9 JUL - 11 JUL", time: "Por confirmar" })),
             r2: Array(2).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: i === 0 ? "14 JUL" : "15 JUL", time: "2:00 / 7:00 p.m." })),
             r1: [{ id: 1, t1: "Por definir", t2: "Por definir", w: null, date: "19 JUL", time: "2:00 p.m. FINAL" }]
         };
 
-        // CACHE BUSTER: Levantamiento forzado del JSON de simulación limpio v6
         let simulationData = JSON.parse(localStorage.getItem('wc2026_sim_v6')) || JSON.parse(JSON.stringify(initialSimData));
-        let currentActiveRound = 8; // Octavos de final por defecto activos
+        let currentActiveRound = 8; 
         let previousLivesState = {};
         let lastClickedBracket = null;
         let isScreenshotModeActive = false;
 
-        // AUTOMATIZACIÓN DINÁMICA: Validador cronológico nativo que compara con el reloj del teléfono del usuario
         const isToday = (matchDateString) => {
             const now = new Date();
             const months = { "ENE": 0, "FEB": 1, "MAR": 2, "ABR": 3, "MAY": 4, "JUN": 5, "JUL": 6, "AGO": 7, "SET": 8, "OCT": 9, "NOV": 10, "DIC": 11 };
@@ -240,18 +237,6 @@
             const monthStr = parts[1].toUpperCase();
             return now.getDate() === day && now.getMonth() === months[monthStr];
         };
-
-        function toggleControlPanel() {
-            const content = document.getElementById('panel-content');
-            const arrow = document.getElementById('panel-arrow');
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                arrow.innerHTML = '🔼 OCULTAR';
-            } else {
-                content.classList.add('hidden');
-                arrow.innerHTML = '🔽 MOSTRAR';
-            }
-        }
 
         function getOwnersText(country) {
             if (!country || country === "Por definir") return "";
@@ -308,7 +293,6 @@
             container.innerHTML = htmlString;
         }
 
-        /* SUSTENTACIÓN UX: Retorno estricto a corazones de vida retro-arcade */
         function renderPollaBoard(triggerShakeFor) {
             const container = document.getElementById('leaderboard-cards');
             if (!container) return;
@@ -333,7 +317,7 @@
                     badge = `<span class="bg-amber-500/20 text-amber-400 text-[11px] px-2.5 py-0.5 rounded-full border border-amber-500/30 font-black">⚠️ CAPILLA</span>`;
                     heartIcons = "❤️🖤";
                 } else {
-                    stateClass = 'status-gameover'; // Efecto Fantasma de Atenuación Absoluta para eliminados de la v5.4
+                    stateClass = 'status-gameover';
                     badge = `<span class="bg-slate-950 text-slate-500 text-[11px] px-2.5 py-0.5 rounded-full border border-slate-800 font-bold">💀 FUERA</span>`;
                     heartIcons = "🖤🖤";
                 }
@@ -449,7 +433,6 @@
                 const t1Selected = m.w === m.t1 && m.w !== null;
                 const t2Selected = m.w === m.t2 && m.w !== null;
 
-                // AUTOMATIZACIÓN DINÁMICA DE LA CÁPSULA CENTRAL (Hora de Perú + Badge de Fuego)
                 let labelCenterContent = "";
                 if (m.t1 === "Por definir" || m.t2 === "Por definir") {
                     labelCenterContent = `<span class="text-[9px] font-black text-slate-500 uppercase tracking-tight">VS</span>`;
@@ -481,7 +464,7 @@
                             </div>
                         </div>
                         
-                        <!-- Nodo Central Metatrónico Informativo (Fecha + Hora Lima) -->
+                        <!-- Nodo Central Informativo -->
                         <div class="col-span-2 flex flex-col items-center justify-center border-x border-slate-900 h-full py-1 bg-slate-900/30 text-center select-none px-0.5">
                             ${labelCenterContent}
                         </div>
@@ -514,14 +497,14 @@
 
                 if (match2) {
                     htmlContent += `
-                        <!-- CONTENEDOR POR PARES CON GUTTER PROTEGIDO (VISTA MÓVIL OPTIMIZADA) -->
-                        <div class="relative bg-slate-950/20 border border-slate-800/40 p-2 rounded-2xl pr-10 sm:pr-12 shadow-inner">
-                            <div class="space-y-2 relative z-10">
+                        <!-- BLINDAJE UX: max-w-[calc(100%-8px)] añade un colchón de protección a la celda móvil para eliminar el desborde -->
+                        <div class="relative bg-slate-950/20 border border-slate-800/40 p-2 rounded-2xl pr-10 sm:pr-12 shadow-inner max-w-[calc(100%-8px)] mx-auto w-full">
+                            <div class="space-y-2 relative z-10 w-full">
                                 ${createMatchCard(match1)}
                                 ${createMatchCard(match2)}
                             </div>
                             
-                            <!-- Canal rígido derecho para las líneas conectoras del bracket -->
+                            <!-- Canal rígido derecho reposicionado -->
                             <div class="absolute top-0 bottom-0 right-0 w-10 sm:w-12 flex items-center justify-center pointer-events-none z-0">
                                 <div class="w-5 sm:w-6 h-1/2 border-r-2 border-y-2 ${extraLineClass} rounded-r-lg absolute left-1"></div>
                                 <div class="w-4 sm:w-5 border-t-2 ${extraLineClass} absolute right-0 top-1/2"></div>
@@ -530,7 +513,7 @@
                     `;
                 } else {
                     htmlContent += `
-                        <div class="max-w-xl mx-auto bg-gradient-to-b from-yellow-500/10 to-transparent border border-yellow-500/20 p-3 rounded-2xl shadow-2xl relative overflow-hidden">
+                        <div class="max-w-xl mx-auto bg-gradient-to-b from-yellow-500/10 to-transparent border border-yellow-500/20 p-3 rounded-2xl shadow-2xl relative overflow-hidden w-full">
                             <div class="text-center text-[10px] font-black text-yellow-400 uppercase tracking-widest mb-2 flex items-center justify-center gap-1">
                                 ✨ GRAN FINAL DEL MUNDIAL ✨
                             </div>
@@ -587,7 +570,6 @@
             previousLivesState[p.name] = (c1Alive ? 1 : 0) + (c2Alive ? 1 : 0);
         });
 
-        // Inicialización y arranque forzado en Octavos
         saveAndRender();
         filterRound(8);
     </script>
