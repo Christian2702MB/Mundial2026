@@ -79,7 +79,7 @@
         </h1>
         <div class="flex items-center justify-center gap-3 mb-2">
             <span class="bg-slate-800 text-slate-400 text-[10px] font-mono px-2.5 py-0.5 rounded-md border border-slate-700 tracking-wider hide-on-screenshot">
-                v5.6 - Master Architec
+                v5.7 - Buster Engine
             </span>
             <div class="bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 font-black text-xs px-4 py-0.5 rounded-full shadow-lg">
                 💰 POZO: S/. 400
@@ -134,7 +134,7 @@
             <div id="leaderboard-cards" class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 h-fit"></div>
         </div>
 
-        <!-- PESTAÑA 2: AVANCE DEL TORNEO -->
+        <!-- PESTAÑA 2: AVANCE DEL TORNEO (BRACKETS INMERSIVOS DE PANTALLA COMPLETA) -->
         <div id="tab-content-avance" class="bg-slate-900/40 p-4 sm:p-5 rounded-2xl border border-slate-800 hidden max-w-4xl mx-auto">
             <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-slate-800 pb-3 mb-4 gap-2">
                 <div>
@@ -183,7 +183,8 @@
 
         const flags = { "Japón": "🇯🇵", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Portugal": "🇵🇹", "Marruecos": "🇲🇦", "Alemania": "🇩🇪", "España": "🇪🇸", "Francia": "🇫🇷", "Holanda": "🇳🇱", "Suecia": "🇸🇪", "Sudáfrica": "🇿🇦", "Canadá": "🇨🇦", "Países Bajos": "🇳🇱", "Croacia": "🇭🇷", "Austria": "🇦🇹", "Estados Unidos": "🇺🇸", "Bosnia": "🇧🇦", "Bélgica": "🇧🇪", "Senegal": "🇸🇳", "Costa de Marfil": "🇨🇮", "Noruega": "🇳🇴", "México": "🇲🇽", "Ecuador": "🇪🇨", "RD Congo": "🇨🇩", "Cabo Verde": "🇨🇻", "Australia": "🇦🇺", "Egipto": "🇪🇬", "Suiza": "🇨🇭", "Argelia": "🇩🇿", "Colombia": "🇨🇴", "Ghana": "🇬🇭", "Paraguay": "🇵🇾", "Por definir": "🏳️" };
 
-        let countryStatus = JSON.parse(localStorage.getItem('wc2026_status_v5')) || {
+        // CACHE BUSTER: Actualizado a v6 para limpiar el almacenamiento viejo del navegador del usuario
+        let countryStatus = JSON.parse(localStorage.getItem('wc2026_status_v6')) || {
             "Japón": false, "Alemania": false, "Inglaterra": true, "Argentina": true, "Brasil": true, "Portugal": true, "Marruecos": true, "España": true, "Francia": true, "Holanda": true
         };
 
@@ -206,14 +207,14 @@
                 { id: 15, t1: "Suiza", t2: "Argelia", w: null, date: "2 JUL" },
                 { id: 16, t1: "Colombia", t2: "Ghana", w: null, date: "3 JUL" }
             ],
-            // Sincronización Horaria y de Calendario Oficial (Hora de Lima, Perú - Imagen 78505.jpg)
+            // MAPEO SINCRONIZADO: Corregido de raíz según la distribución e imágenes reales (78505_2.jpg y 78510.jpg)
             r8: [
-                { id: 1, t1: "Por definir", t2: "Por definir", w: null, date: "4 JUL", time: "2:00 p.m." },
-                { id: 2, t1: "Por definir", t2: "Por definir", w: null, date: "4 JUL", time: "7:00 p.m." },
+                { id: 1, t1: "Por definir", t2: "Por definir", w: null, date: "4 JUL", time: "2:00 p.m." }, // Paraguay vs Francia
+                { id: 2, t1: "Por definir", t2: "Por definir", w: null, date: "4 JUL", time: "7:00 p.m." }, // Canadá vs Marruecos
                 { id: 3, t1: "Por definir", t2: "Por definir", w: null, date: "6 JUL", time: "7:00 p.m." }, // Portugal vs España
                 { id: 4, t1: "Por definir", t2: "Por definir", w: null, date: "6 JUL", time: "2:00 p.m." }, // EE.UU vs Bélgica
-                { id: 5, t1: "Por definir", t2: "Por definir", w: null, date: "5 JUL", time: "3:00 p.m." }, // Brasil vs Noruega
-                { id: 6, t1: "Por definir", t2: "Por definir", w: null, date: "5 JUL", time: "7:00 p.m." }, // México vs Inglaterra
+                { id: 5, t1: "Por definir", t2: "Por definir", w: null, date: "5 JUL", time: "3:00 p.m." }, // Brasil vs Noruega (HOY)
+                { id: 6, t1: "Por definir", t2: "Por definir", w: null, date: "5 JUL", time: "7:00 p.m." }, // México vs Inglaterra (HOY)
                 { id: 7, t1: "Por definir", t2: "Por definir", w: null, date: "7 JUL", time: "11:00 a.m." }, // Argentina vs Egipto
                 { id: 8, t1: "Por definir", t2: "Por definir", w: null, date: "7 JUL", time: "3:00 p.m." }  // Suiza vs Colombia
             ],
@@ -222,13 +223,14 @@
             r1: [{ id: 1, t1: "Por definir", t2: "Por definir", w: null, date: "19 JUL", time: "2:00 p.m. FINAL" }]
         };
 
-        let simulationData = JSON.parse(localStorage.getItem('wc2026_sim_v5')) || JSON.parse(JSON.stringify(initialSimData));
-        let currentActiveRound = 8; // Forzado inicial por defecto en Octavos
+        // CACHE BUSTER: Levantamiento forzado del JSON de simulación limpio v6
+        let simulationData = JSON.parse(localStorage.getItem('wc2026_sim_v6')) || JSON.parse(JSON.stringify(initialSimData));
+        let currentActiveRound = 8; // Octavos de final por defecto activos
         let previousLivesState = {};
         let lastClickedBracket = null;
         let isScreenshotModeActive = false;
 
-        // Validador cronológico nativo para la alerta automatizada '🔥 HOY'
+        // AUTOMATIZACIÓN DINÁMICA: Validador cronológico nativo que compara con el reloj del teléfono del usuario
         const isToday = (matchDateString) => {
             const now = new Date();
             const months = { "ENE": 0, "FEB": 1, "MAR": 2, "ABR": 3, "MAY": 4, "JUN": 5, "JUL": 6, "AGO": 7, "SET": 8, "OCT": 9, "NOV": 10, "DIC": 11 };
@@ -306,7 +308,7 @@
             container.innerHTML = htmlString;
         }
 
-        /* RETORNO RECOMENDADO DE CORAZONES: Máxima claridad conceptual de supervivencia */
+        /* SUSTENTACIÓN UX: Retorno estricto a corazones de vida retro-arcade */
         function renderPollaBoard(triggerShakeFor) {
             const container = document.getElementById('leaderboard-cards');
             if (!container) return;
@@ -331,7 +333,7 @@
                     badge = `<span class="bg-amber-500/20 text-amber-400 text-[11px] px-2.5 py-0.5 rounded-full border border-amber-500/30 font-black">⚠️ CAPILLA</span>`;
                     heartIcons = "❤️🖤";
                 } else {
-                    stateClass = 'status-gameover'; // Efecto Fantasma de Atenuación Absoluta para eliminados
+                    stateClass = 'status-gameover'; // Efecto Fantasma de Atenuación Absoluta para eliminados de la v5.4
                     badge = `<span class="bg-slate-950 text-slate-500 text-[11px] px-2.5 py-0.5 rounded-full border border-slate-800 font-bold">💀 FUERA</span>`;
                     heartIcons = "🖤🖤";
                 }
@@ -447,13 +449,13 @@
                 const t1Selected = m.w === m.t1 && m.w !== null;
                 const t2Selected = m.w === m.t2 && m.w !== null;
 
+                // AUTOMATIZACIÓN DINÁMICA DE LA CÁPSULA CENTRAL (Hora de Perú + Badge de Fuego)
                 let labelCenterContent = "";
                 if (m.t1 === "Por definir" || m.t2 === "Por definir") {
                     labelCenterContent = `<span class="text-[9px] font-black text-slate-500 uppercase tracking-tight">VS</span>`;
                 } else if (m.w) {
                     labelCenterContent = `<span class="text-green-400 font-black text-xs">✔</span>`;
                 } else if (isToday(m.date)) {
-                    // Ticker de Fuego Automatizado Dinámico (Imagen 78503.jpg)
                     labelCenterContent = `
                         <span class="badge-today bg-red-950/60 border border-red-500/40 text-red-400 font-black text-[9px] px-1.5 py-0.5 rounded shadow-[0_0_8px_rgba(239,68,68,0.4)] uppercase tracking-tight mb-0.5">🔥 HOY</span>
                         <span class="text-slate-400 font-mono text-[9px] font-bold">${m.time || ''}</span>
@@ -479,7 +481,7 @@
                             </div>
                         </div>
                         
-                        <!-- Nodo Central Informativo (Hora de Lima + Fecha) -->
+                        <!-- Nodo Central Metatrónico Informativo (Fecha + Hora Lima) -->
                         <div class="col-span-2 flex flex-col items-center justify-center border-x border-slate-900 h-full py-1 bg-slate-900/30 text-center select-none px-0.5">
                             ${labelCenterContent}
                         </div>
@@ -512,14 +514,14 @@
 
                 if (match2) {
                     htmlContent += `
-                        <!-- CONTENEDOR DE EMPAREJAMIENTO CON CANAL DE ANCHO FIJO (ANTIDESALINEACIÓN) -->
+                        <!-- CONTENEDOR POR PARES CON GUTTER PROTEGIDO (VISTA MÓVIL OPTIMIZADA) -->
                         <div class="relative bg-slate-950/20 border border-slate-800/40 p-2 rounded-2xl pr-10 sm:pr-12 shadow-inner">
                             <div class="space-y-2 relative z-10">
                                 ${createMatchCard(match1)}
                                 ${createMatchCard(match2)}
                             </div>
                             
-                            <!-- Canal de la línea del bracket inmune a cambios de tamaño de texto -->
+                            <!-- Canal rígido derecho para las líneas conectoras del bracket -->
                             <div class="absolute top-0 bottom-0 right-0 w-10 sm:w-12 flex items-center justify-center pointer-events-none z-0">
                                 <div class="w-5 sm:w-6 h-1/2 border-r-2 border-y-2 ${extraLineClass} rounded-r-lg absolute left-1"></div>
                                 <div class="w-4 sm:w-5 border-t-2 ${extraLineClass} absolute right-0 top-1/2"></div>
@@ -570,8 +572,8 @@
         }
 
         function saveAndRender(triggerShakeFor = null) {
-            localStorage.setItem('wc2026_status_v5', JSON.stringify(countryStatus));
-            localStorage.setItem('wc2026_sim_v5', JSON.stringify(simulationData));
+            localStorage.setItem('wc2026_status_v6', JSON.stringify(countryStatus));
+            localStorage.setItem('wc2026_sim_v6', JSON.stringify(simulationData));
             renderControls();
             renderPollaBoard(triggerShakeFor);
             calculateNextRounds();
@@ -585,9 +587,9 @@
             previousLivesState[p.name] = (c1Alive ? 1 : 0) + (c2Alive ? 1 : 0);
         });
 
-        // Inicialización Forzada de Arranque
+        // Inicialización y arranque forzado en Octavos
         saveAndRender();
-        filterRound(8); // Foco directo en Octavos de final
+        filterRound(8);
     </script>
 </body>
 </html>
