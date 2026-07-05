@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mundial de Fútbol 2026 - Polla Familiar</title>
+    <!-- Tailwind CSS para diseño de TV deportiva de alto rendimiento -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0b0f19; color: #f8fafc; overflow-x: hidden; transition: background-color 0.3s ease; }
@@ -34,7 +35,7 @@
 
         .card-animate { animation: fadeInUp 0.4s ease-out both; }
         .status-capilla { animation: floatWarning 2.5s infinite ease-in-out; background: linear-gradient(135deg, #151426 0%, #0d1220 100%) !important; }
-        .status-gameover { animation: earthquake 0.5s ease-in-out both; filter: grayscale(1) opacity(0.35) contrast(0.8); background: #070a12 !important; border-color: rgba(239, 68, 68, 0.15) !important; }
+        .status-gameover { filter: grayscale(1) opacity(0.35) contrast(0.8); background: #070a12 !important; border-color: rgba(239, 68, 68, 0.15) !important; }
         
         .country-box { transition: all 0.25s ease; }
         .country-dead-style { filter: grayscale(0.8) opacity(0.4); text-decoration: line-through; color: #475569; }
@@ -54,10 +55,12 @@
 </head>
 <body class="p-4 md:p-8 font-sans transition-all duration-300" id="main-body">
 
+    <!-- Banner de Notificación de Modo Captura -->
     <div id="screenshot-toast" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-slate-950 font-black text-xs px-6 py-2.5 rounded-full shadow-2xl z-50 tracking-wide uppercase">
         📸 Modo Captura Activo - Toca cualquier parte para salir
     </div>
 
+    <!-- Encabezado Principal Premium UI/UX -->
     <div class="max-w-6xl mx-auto text-center mb-6 relative">
         <div class="flex justify-center mb-2 drop-shadow-[0_0_20px_rgba(234,179,8,0.35)] hide-on-screenshot">
             <svg class="w-14 h-14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,7 +79,7 @@
         </h1>
         <div class="flex items-center justify-center gap-3 mb-2">
             <span class="bg-slate-800 text-slate-400 text-[10px] font-mono px-2.5 py-0.5 rounded-md border border-slate-700 tracking-wider hide-on-screenshot">
-                v5.4 - Engine Max
+                v5.6 - Master Architec
             </span>
             <div class="bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 font-black text-xs px-4 py-0.5 rounded-full shadow-lg">
                 💰 POZO: S/. 400
@@ -84,6 +87,7 @@
         </div>
     </div>
 
+    <!-- Pestañas de Navegación -->
     <div class="max-w-6xl mx-auto flex border-b border-slate-800 mb-6 text-sm md:text-base font-black tracking-wide hide-on-screenshot">
         <button onclick="switchTab('polla')" id="btn-tab-polla" class="flex-1 py-3 text-center border-b-4 transition-all duration-200 text-green-400 border-green-500">
             📊 Mis Elecciones
@@ -93,11 +97,15 @@
         </button>
     </div>
 
+    <!-- Layout General -->
     <div class="max-w-6xl mx-auto">
         
+        <!-- PESTAÑA 1: POSICIONES + CONTROLES CONTEXTUALES -->
         <div id="tab-content-polla" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
+            <!-- Columna de Control Técnico y Boletín -->
             <div class="space-y-4 h-fit lg:col-span-1 hide-on-screenshot">
+                <!-- Panel Técnico Opciones -->
                 <div class="bg-slate-900/90 p-4 rounded-2xl shadow-2xl border border-slate-800 backdrop-blur-md transition-all duration-300">
                     <button onclick="toggleControlPanel()" class="w-full flex justify-between items-center text-left focus:outline-none py-1 group">
                         <div class="flex items-center gap-2">
@@ -113,6 +121,7 @@
                     </div>
                 </div>
 
+                <!-- Boletín del Drama Familiar Estático -->
                 <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-4">
                     <h3 class="text-xs font-black text-slate-400 tracking-wider uppercase mb-2.5 flex items-center gap-1.5">
                         <span>📢</span> Estado en Vivo de la Familia
@@ -121,9 +130,11 @@
                 </div>
             </div>
 
+            <!-- Leaderboard Cards -->
             <div id="leaderboard-cards" class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 h-fit"></div>
         </div>
 
+        <!-- PESTAÑA 2: AVANCE DEL TORNEO -->
         <div id="tab-content-avance" class="bg-slate-900/40 p-4 sm:p-5 rounded-2xl border border-slate-800 hidden max-w-4xl mx-auto">
             <div class="flex flex-col sm:flex-row justify-between sm:items-center border-b border-slate-800 pb-3 mb-4 gap-2">
                 <div>
@@ -132,7 +143,7 @@
                 </div>
                 
                 <div class="flex bg-slate-950 p-1 rounded-lg border border-slate-800 text-[10px] sm:text-[11px] font-bold overflow-x-auto hide-on-screenshot">
-                    <button onclick="filterRound(16)" id="r-btn-16" class="px-2 py-1 rounded bg-slate-800 text-green-400 whitespace-nowrap">16avos</button>
+                    <button onclick="filterRound(16)" id="r-btn-16" class="px-2 py-1 rounded text-slate-400 whitespace-nowrap">16avos</button>
                     <button onclick="filterRound(8)" id="r-btn-8" class="px-2 py-1 rounded text-slate-400 whitespace-nowrap">Octavos</button>
                     <button onclick="filterRound(4)" id="r-btn-4" class="px-2 py-1 rounded text-slate-400 whitespace-nowrap">Cuartos</button>
                     <button onclick="filterRound(2)" id="r-btn-2" class="px-2 py-1 rounded text-slate-400 whitespace-nowrap">Semifinal</button>
@@ -151,9 +162,10 @@
 
     </div>
 
+    <!-- BOTÓN FLOTANTE MODO FOTO WHATSAPP -->
     <button onclick="enterScreenshotMode(event)" id="btn-screenshot-float" class="hide-on-screenshot fixed bottom-6 right-6 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-slate-950 p-3.5 rounded-full shadow-[0_8px_30px_rgb(34,197,94,0.3)] transition-all transform hover:scale-110 active:scale-95 z-40" title="Modo Captura WhatsApp">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0110 4.186h4a2.31 2.31 0 013.173 1.989l.062.496a.515.515 0 00.416.441a4.497 4.497 0 013.848 4.422v5.131a4.497 4.497 0 01-4.497 4.497H6.997a4.497 4.497 0 01-4.497-4.497v-5.131a4.497 4.497 0 013.847-4.422a.515.515 0 00.417-.441l.063-.496zm3.673 6.825a1.5 1.5 0 113 0a1.5 1.5 0 01-3 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0110 4.186h4a2.31 2.31 0 013.173 1.989l.062.496a.515.515 0 00.416.441a4.497 4.497 0 01-3.848 4.422v5.131a4.497 4.497 0 01-4.497 4.497H6.997a4.497 4.497 0 01-4.497-4.497v-5.131a4.497 4.497 0 013.847-4.422a.515.515 0 00.417-.441l.063-.496zm3.673 6.825a1.5 1.5 0 113 0a1.5 1.5 0 01-3 0z"></path>
         </svg>
     </button>
 
@@ -169,7 +181,7 @@
             { name: "Andre", c1: "Holanda", flag1: "🇳🇱", c2: "Portugal", flag2: "🇵🇹" }
         ];
 
-        const flags = { "Japón": "🇯🇵", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Portugal": "🇵🇹", "Marruecos": "🇲🇦", "Alemania": "🇩🇪", "España": "🇪🇸", "Francia": "🇫🇷", "Holanda": "🇳🇱", "Suecia": "🇸🇪", "Sudáfrica": "🇿🇦", "Canadá": "🇨🇦", "Países Bajos": "🇳🇱", "Croacia": "🇭🇷", "Austria": "🇦🇹", "Estados Unidos": "🇺🇸", "Bosnia": "🇧🇦", "Bélgica": "🇧🇪", "Senegal": "🇸🇳", "Costa de Marfil": "🇨🇮", "Noruega": "🇳🇴", "México": "🇲🇽", "Ecuador": "🇪🇨", "RD Congo": "🇨🇩", "Cabo Verde": "🇨 Vivekanand", "Cabo Verde": "🇨🇻", "Australia": "🇦🇺", "Egipto": "🇪🇬", "Suiza": "🇨🇭", "Argelia": "🇩🇿", "Colombia": "🇨🇴", "Ghana": "🇬🇭", "Paraguay": "🇵🇾", "Por definir": "🏳️" };
+        const flags = { "Japón": "🇯🇵", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "Argentina": "🇦🇷", "Brasil": "🇧🇷", "Portugal": "🇵🇹", "Marruecos": "🇲🇦", "Alemania": "🇩🇪", "España": "🇪🇸", "Francia": "🇫🇷", "Holanda": "🇳🇱", "Suecia": "🇸🇪", "Sudáfrica": "🇿🇦", "Canadá": "🇨🇦", "Países Bajos": "🇳🇱", "Croacia": "🇭🇷", "Austria": "🇦🇹", "Estados Unidos": "🇺🇸", "Bosnia": "🇧🇦", "Bélgica": "🇧🇪", "Senegal": "🇸🇳", "Costa de Marfil": "🇨🇮", "Noruega": "🇳🇴", "México": "🇲🇽", "Ecuador": "🇪🇨", "RD Congo": "🇨🇩", "Cabo Verde": "🇨🇻", "Australia": "🇦🇺", "Egipto": "🇪🇬", "Suiza": "🇨🇭", "Argelia": "🇩🇿", "Colombia": "🇨🇴", "Ghana": "🇬🇭", "Paraguay": "🇵🇾", "Por definir": "🏳️" };
 
         let countryStatus = JSON.parse(localStorage.getItem('wc2026_status_v5')) || {
             "Japón": false, "Alemania": false, "Inglaterra": true, "Argentina": true, "Brasil": true, "Portugal": true, "Marruecos": true, "España": true, "Francia": true, "Holanda": true
@@ -194,17 +206,38 @@
                 { id: 15, t1: "Suiza", t2: "Argelia", w: null, date: "2 JUL" },
                 { id: 16, t1: "Colombia", t2: "Ghana", w: null, date: "3 JUL" }
             ],
-            r8: Array(8).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "4 JUL - 7 JUL" })),
-            r4: Array(4).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "9 JUL - 11 JUL" })),
-            r2: Array(2).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "14 JUL / 15 JUL" })),
-            r1: [{ id: 1, t1: "Por definir", t2: "Por definir", w: null, date: "19 JUL - GRAN FINAL" }]
+            // Sincronización Horaria y de Calendario Oficial (Hora de Lima, Perú - Imagen 78505.jpg)
+            r8: [
+                { id: 1, t1: "Por definir", t2: "Por definir", w: null, date: "4 JUL", time: "2:00 p.m." },
+                { id: 2, t1: "Por definir", t2: "Por definir", w: null, date: "4 JUL", time: "7:00 p.m." },
+                { id: 3, t1: "Por definir", t2: "Por definir", w: null, date: "6 JUL", time: "7:00 p.m." }, // Portugal vs España
+                { id: 4, t1: "Por definir", t2: "Por definir", w: null, date: "6 JUL", time: "2:00 p.m." }, // EE.UU vs Bélgica
+                { id: 5, t1: "Por definir", t2: "Por definir", w: null, date: "5 JUL", time: "3:00 p.m." }, // Brasil vs Noruega
+                { id: 6, t1: "Por definir", t2: "Por definir", w: null, date: "5 JUL", time: "7:00 p.m." }, // México vs Inglaterra
+                { id: 7, t1: "Por definir", t2: "Por definir", w: null, date: "7 JUL", time: "11:00 a.m." }, // Argentina vs Egipto
+                { id: 8, t1: "Por definir", t2: "Por definir", w: null, date: "7 JUL", time: "3:00 p.m." }  // Suiza vs Colombia
+            ],
+            r4: Array(4).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: "9 JUL - 11 JUL", time: "Por confirmar" })),
+            r2: Array(2).fill(null).map((_, i) => ({ id: i+1, t1: "Por definir", t2: "Por definir", w: null, date: i === 0 ? "14 JUL" : "15 JUL", time: "2:00 / 7:00 p.m." })),
+            r1: [{ id: 1, t1: "Por definir", t2: "Por definir", w: null, date: "19 JUL", time: "2:00 p.m. FINAL" }]
         };
 
         let simulationData = JSON.parse(localStorage.getItem('wc2026_sim_v5')) || JSON.parse(JSON.stringify(initialSimData));
-        let currentActiveRound = 16;
+        let currentActiveRound = 8; // Forzado inicial por defecto en Octavos
         let previousLivesState = {};
         let lastClickedBracket = null;
         let isScreenshotModeActive = false;
+
+        // Validador cronológico nativo para la alerta automatizada '🔥 HOY'
+        const isToday = (matchDateString) => {
+            const now = new Date();
+            const months = { "ENE": 0, "FEB": 1, "MAR": 2, "ABR": 3, "MAY": 4, "JUN": 5, "JUL": 6, "AGO": 7, "SET": 8, "OCT": 9, "NOV": 10, "DIC": 11 };
+            const parts = matchDateString.trim().split(" ");
+            if (parts.length < 2) return false;
+            const day = parseInt(parts[0], 10);
+            const monthStr = parts[1].toUpperCase();
+            return now.getDate() === day && now.getMonth() === months[monthStr];
+        };
 
         function toggleControlPanel() {
             const content = document.getElementById('panel-content');
@@ -254,24 +287,6 @@
             renderAvanceTorneo();
         }
 
-        function resetSimulation() {
-            if (confirm("¿Estás seguro de que quieres limpiar tus predicciones del simulador?")) {
-                simulationData = JSON.parse(JSON.stringify(initialSimData));
-                lastClickedBracket = null;
-                saveAndRender();
-            }
-        }
-
-        function saveAndRender(triggerShakeFor = null) {
-            localStorage.setItem('wc2026_status_v5', JSON.stringify(countryStatus));
-            localStorage.setItem('wc2026_sim_v5', JSON.stringify(simulationData));
-            renderControls();
-            renderPollaBoard(triggerShakeFor);
-            calculateNextRounds();
-            renderAvanceTorneo();
-            renderDramaTicker();
-        }
-
         function renderControls() {
             const container = document.getElementById('country-controls');
             if (!container) return;
@@ -291,7 +306,7 @@
             container.innerHTML = htmlString;
         }
 
-        /* REFACTORIZACIÓN TASK 3: MÁXIMO DRAMA VISUAL PARA LOS JUGADORES ELIMINADOS (GHOST CARDS) */
+        /* RETORNO RECOMENDADO DE CORAZONES: Máxima claridad conceptual de supervivencia */
         function renderPollaBoard(triggerShakeFor) {
             const container = document.getElementById('leaderboard-cards');
             if (!container) return;
@@ -316,7 +331,7 @@
                     badge = `<span class="bg-amber-500/20 text-amber-400 text-[11px] px-2.5 py-0.5 rounded-full border border-amber-500/30 font-black">⚠️ CAPILLA</span>`;
                     heartIcons = "❤️🖤";
                 } else {
-                    stateClass = 'status-gameover'; // Aplicación de filtros de desvanecimiento absoluto en CSS (.status-gameover)
+                    stateClass = 'status-gameover'; // Efecto Fantasma de Atenuación Absoluta para eliminados
                     badge = `<span class="bg-slate-950 text-slate-500 text-[11px] px-2.5 py-0.5 rounded-full border border-slate-800 font-bold">💀 FUERA</span>`;
                     heartIcons = "🖤🖤";
                 }
@@ -351,7 +366,6 @@
             container.innerHTML = htmlString;
         }
 
-        /* TASK 2: BOLETÍN FAMILIAR CRONOLÓGICO/ESTÁTICO SECUENCIAL */
         function renderDramaTicker() {
             const container = document.getElementById('family-drama-ticker');
             if (!container) return;
@@ -362,12 +376,12 @@
                 const lives = (c1Alive ? 1 : 0) + (c2Alive ? 1 : 0);
                 
                 if (lives === 2) {
-                    return `<div class="bg-emerald-950/20 text-emerald-400 p-2 rounded border border-emerald-950 flex items-center gap-2 font-medium">🔥 <span class="font-black uppercase">${p.name}</span> está invicto con sus elecciones vivas.</div>`;
+                    return `<div class="bg-emerald-950/20 text-emerald-400 p-2 rounded border border-emerald-950 flex items-center gap-2 font-medium">🔥 <span class="font-black uppercase">${p.name}</span> sigue invicto con sus dos vidas intactas.</div>`;
                 } else if (lives === 1) {
                     const muerto = !c1Alive ? p.c1 : p.c2;
                     return `<div class="bg-amber-950/20 text-amber-400 p-2 rounded border border-amber-950 flex items-center gap-2 font-medium">⚠️ <span class="font-black uppercase">${p.name}</span> en capilla tras la caída de ${muerto}.</div>`;
                 } else {
-                    return `<div class="bg-rose-950/20 text-rose-500/80 p-2 rounded border border-rose-950/40 flex items-center gap-2 font-bold line-through opacity-60">💀 <span class="font-black uppercase">${p.name}</span> quedó eliminado.</div>`;
+                    return `<div class="bg-rose-950/20 text-rose-500/80 p-2 rounded border border-rose-950/40 flex items-center gap-2 font-bold line-through opacity-60">💀 <span class="font-black uppercase">${p.name}</span> perdió todas sus vidas y quedó fuera.</div>`;
                 }
             }).join('');
             
@@ -396,7 +410,7 @@
         }
 
         function simulateWinner(roundKey, matchId, teamIndex) {
-            if(isScreenshotModeActive) return; // Bloquear interacción en modo foto
+            if(isScreenshotModeActive) return;
             const roundArr = simulationData[roundKey];
             const matchIndex = roundArr.findIndex(m => m.id === matchId);
             const match = roundArr[matchIndex];
@@ -433,28 +447,28 @@
                 const t1Selected = m.w === m.t1 && m.w !== null;
                 const t2Selected = m.w === m.t2 && m.w !== null;
 
-                // MEJORA 2: DETECCIÓN DEL FOCO TEMPORAL (HOY ES 2 JUL)
-                let labelCenter = "VS";
-                let colorCenter = "text-slate-500";
-                let pulseClass = "";
-
-                if (m.t1 !== "Por definir" && m.t2 !== "Por definir") {
-                    if (m.w) {
-                        labelCenter = "✔";
-                        colorCenter = "text-green-400 font-black text-xs";
-                    } else if (m.date === "2 JUL") { // Verificación exacta con el día de juego actual
-                        labelCenter = "🔥 HOY";
-                        colorCenter = "text-red-400 font-black text-[9px]";
-                        pulseClass = "badge-today bg-red-950/40 border border-red-500/30 px-1.5 py-0.5 rounded shadow-[0_0_8px_rgba(239,68,68,0.4)]";
-                    } else {
-                        labelCenter = m.date;
-                        colorCenter = "text-amber-400/90 font-mono text-[9px]";
-                    }
+                let labelCenterContent = "";
+                if (m.t1 === "Por definir" || m.t2 === "Por definir") {
+                    labelCenterContent = `<span class="text-[9px] font-black text-slate-500 uppercase tracking-tight">VS</span>`;
+                } else if (m.w) {
+                    labelCenterContent = `<span class="text-green-400 font-black text-xs">✔</span>`;
+                } else if (isToday(m.date)) {
+                    // Ticker de Fuego Automatizado Dinámico (Imagen 78503.jpg)
+                    labelCenterContent = `
+                        <span class="badge-today bg-red-950/60 border border-red-500/40 text-red-400 font-black text-[9px] px-1.5 py-0.5 rounded shadow-[0_0_8px_rgba(239,68,68,0.4)] uppercase tracking-tight mb-0.5">🔥 HOY</span>
+                        <span class="text-slate-400 font-mono text-[9px] font-bold">${m.time || ''}</span>
+                    `;
+                } else {
+                    labelCenterContent = `
+                        <span class="text-amber-400 font-black text-[10px] tracking-tight mb-0.5">${m.date}</span>
+                        <span class="text-slate-400 font-mono text-[9px] font-bold whitespace-nowrap">${m.time || ''}</span>
+                    `;
                 }
 
                 return `
                     <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl overflow-hidden shadow-md grid grid-cols-12 items-center py-2 transition-all hover:border-slate-700/80">
                         
+                        <!-- País 1 -->
                         <div onclick="simulateWinner('${currentRoundKey}', ${m.id}, 1)" 
                              class="col-span-5 p-2 flex items-center gap-2 cursor-pointer hover:bg-slate-900/60 transition-all min-w-0 select-none h-full ${t1Selected ? 'bg-green-500/5' : ''}">
                             <div class="w-3 h-3 rounded-full border transition-all flex-shrink-0 ${t1Selected ? 'bg-green-500 border-green-400 shadow-[0_0_8px_#22c55e]' : 'border-slate-700 bg-transparent'}"></div>
@@ -465,10 +479,12 @@
                             </div>
                         </div>
                         
-                        <div class="col-span-2 flex flex-col items-center justify-center border-x border-slate-900 h-full py-1 bg-slate-900/30 text-center select-none truncate px-0.5">
-                            <span class="text-[9px] uppercase font-black tracking-tight ${colorCenter} ${pulseClass}">${labelCenter}</span>
+                        <!-- Nodo Central Informativo (Hora de Lima + Fecha) -->
+                        <div class="col-span-2 flex flex-col items-center justify-center border-x border-slate-900 h-full py-1 bg-slate-900/30 text-center select-none px-0.5">
+                            ${labelCenterContent}
                         </div>
 
+                        <!-- País 2 -->
                         <div onclick="simulateWinner('${currentRoundKey}', ${m.id}, 2)" 
                              class="col-span-5 p-2 flex items-center justify-end gap-2 text-right cursor-pointer hover:bg-slate-900/60 transition-all min-w-0 select-none h-full ${t2Selected ? 'bg-green-500/5' : ''}">
                             <div class="flex flex-col min-w-0 text-right">
@@ -496,12 +512,14 @@
 
                 if (match2) {
                     htmlContent += `
+                        <!-- CONTENEDOR DE EMPAREJAMIENTO CON CANAL DE ANCHO FIJO (ANTIDESALINEACIÓN) -->
                         <div class="relative bg-slate-950/20 border border-slate-800/40 p-2 rounded-2xl pr-10 sm:pr-12 shadow-inner">
                             <div class="space-y-2 relative z-10">
                                 ${createMatchCard(match1)}
                                 ${createMatchCard(match2)}
                             </div>
                             
+                            <!-- Canal de la línea del bracket inmune a cambios de tamaño de texto -->
                             <div class="absolute top-0 bottom-0 right-0 w-10 sm:w-12 flex items-center justify-center pointer-events-none z-0">
                                 <div class="w-5 sm:w-6 h-1/2 border-r-2 border-y-2 ${extraLineClass} rounded-r-lg absolute left-1"></div>
                                 <div class="w-4 sm:w-5 border-t-2 ${extraLineClass} absolute right-0 top-1/2"></div>
@@ -524,14 +542,11 @@
             lastClickedBracket = null;
         }
 
-        /* MEJORA 1: MOTOR INTERACTIVO DEL MODO CAPTURA WHATSAPP */
         function enterScreenshotMode(event) {
-            event.stopPropagation(); // Detener burbujeo
+            event.stopPropagation();
             isScreenshotModeActive = true;
             document.getElementById('main-body').classList.add('screenshot-mode');
             document.getElementById('screenshot-toast').classList.remove('hidden');
-            
-            // Listener global de escape por clic en cualquier zona de la ventana
             window.addEventListener('click', exitScreenshotModeOnce);
         }
 
@@ -554,13 +569,25 @@
             saveAndRender(shockedParticipant);
         }
 
+        function saveAndRender(triggerShakeFor = null) {
+            localStorage.setItem('wc2026_status_v5', JSON.stringify(countryStatus));
+            localStorage.setItem('wc2026_sim_v5', JSON.stringify(simulationData));
+            renderControls();
+            renderPollaBoard(triggerShakeFor);
+            calculateNextRounds();
+            renderAvanceTorneo();
+            renderDramaTicker();
+        }
+
         participants.forEach(p => {
             const c1Alive = countryStatus[p.c1];
             const c2Alive = countryStatus[p.c2];
             previousLivesState[p.name] = (c1Alive ? 1 : 0) + (c2Alive ? 1 : 0);
         });
 
+        // Inicialización Forzada de Arranque
         saveAndRender();
+        filterRound(8); // Foco directo en Octavos de final
     </script>
 </body>
 </html>
